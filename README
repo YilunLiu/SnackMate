@@ -1,0 +1,92 @@
+SnackMate - a shopping app for snack
+
+
+### Baseline 1.0 ###
+
+Homepage
+	show items, able to scroll
+Side bar
+	okay if not clickable
+Logo
+	design 5 - 6 logos
+
+
+### Notes ###
+
+overall style: cute
+
+HOMEPAGE
+search bar
+sort by category/best rating/price
+	taste(sweet, sour, spicy, salty), country, etc
+	implement as tags
+items
+	picture, price, name
+	default: most popular items
+	# infinite scrolling? 
+shuffle
+side bar
+
+SIDE BAR
+account setting
+	address, credit/debit, email (log in with email), name
+purchase history
+	review items
+shopping cart
+	proceed to checkout
+contact us
+log out
+
+SHUFFLE - tinder
+swipe right = add to wish list, do not appear again
+swipe left = ignore
+
+WISH LIST
+add to shopping cart
+delete from wish list
+
+DETAIL
+picture, description, price, name, review (overall rating + comments)
+recommendation - optional
+	you might also like, similar items, ...
+add to shopping cart
+
+SHOPPING CART
+?
+guest checkout
+
+LOG IN PAGE
+can we ask for log in only if they want to add to cart/wish list?
+
+OTHER
+no seller functionalities
+can have fake data (fixed amount of items, price up to developer)
+
+
+ParkingFinder - find parking spaces at UCSD
+
+### Notes ###
+
+Log in
+	login if first time user, automatic log in otherwise
+	ucsd email and password
+Map
+	map of all parking areas, click for detail
+	color visualization (how full it is)
+Detail
+	list
+	type (A/B/S..) + level + whether it's full (percentage)
+Report
+	button at bottom of homepage
+	GPS automatic pop up/click to report
+	"Do you want to report for"
+Other
+	disable functionality or pop up alert while driving
+
+NO need for:
+	bicycle spaces
+	loading spaces
+	exact number of parking spaces (percentage okay)
+		20% jump for sliders
+	navigation
+	show my location
