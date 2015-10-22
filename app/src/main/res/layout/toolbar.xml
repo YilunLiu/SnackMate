@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/my_action_bar_toolbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="39dp"-->
+        <!--android:background="#AFAFAF"-->
+        <!--android:minHeight="200dp">-->
+s
+        <LinearLayout
+            android:id="@+id/GridLayout"
+            android:columnCount="5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="1"
+                android:layout_weight="1"
+                android:text="B"
+                android:layout_gravity="fill"
+                android:layout_marginRight="-8dip"
+                android:layout_marginLeft="-8dip"
+                />
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="1"
+                android:layout_weight="1"
+                android:text="B"
+                android:layout_gravity="fill"
+                android:layout_marginRight="-8dip"
+                />
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="1"
+                android:layout_weight="1"
+                android:text="B"
+                android:layout_marginRight="-8dip"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="1"
+                android:layout_weight="1"
+                android:text="B"
+                android:layout_gravity="fill"
+                android:layout_marginRight="-8dip"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="1"
+                android:layout_weight="1"
+                android:text="B"
+                android:layout_gravity="fill"
+                android:layout_marginRight="-8dip"
+                />
+
+
+        </LinearLayout>
+    <!--</android.support.v7.widget.Toolbar>-->
+
+
+</LinearLayout>
