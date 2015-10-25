@@ -57,12 +57,12 @@ public class HomePage extends AppCompatActivity
         gridView.setAdapter(new ImageAdapter(this));
 
         Spinner menu = (Spinner) findViewById(R.id.spinner1);
-        String[] names = new String[]{"C", "Japan", "Korea", "China", "Others"};
+        String[] names = new String[]{"C", "J", "K", "C", "O"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, names);
         menu.setAdapter(adapter);
 
         Spinner menu1 = (Spinner) findViewById(R.id.spinner2);
-        String[] names1 = new String[]{"T", "Spicy", "Salty","Sweet"};
+        String[] names1 = new String[]{"T", "S", "S","S"};
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, names1);
         menu1.setAdapter(adapter1);
 
@@ -72,12 +72,12 @@ public class HomePage extends AppCompatActivity
         menu2.setAdapter(adapter2);
 
         Spinner menu3 = (Spinner) findViewById(R.id.spinner4);
-        String[] names3 = new String[]{"P", "from High to Low", "from Low to High"};
+        String[] names3 = new String[]{"P", "f", "f"};
         ArrayAdapter<String> adapter3 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, names3);
         menu3.setAdapter(adapter3);
 
         Spinner menu4 = (Spinner) findViewById(R.id.spinner5);
-        String[] names4 = new String[]{"O", "A-Z", "Z-A"};
+        String[] names4 = new String[]{"O", "Z", "A"};
         ArrayAdapter<String> adapter4 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, names4);
         menu4.setAdapter(adapter4);
 
