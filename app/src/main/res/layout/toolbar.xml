@@ -48,7 +48,6 @@
 
             />
 
-
         <Spinner
             android:id="@+id/spinner3"
             android:layout_width="0dp"
@@ -69,12 +68,7 @@
             android:id="@+id/spinner5"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:text="@string/button_price"/>
-
-            <!--/>-->
-
-
+            android:layout_weight="1" />
 
 
     </LinearLayout>

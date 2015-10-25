@@ -56,30 +56,29 @@ public class HomePage extends AppCompatActivity
         GridView gridView = (GridView) findViewById(R.id.homepage_gridview);
         gridView.setAdapter(new ImageAdapter(this));
 
-
         Spinner menu = (Spinner) findViewById(R.id.spinner1);
         String[] names = new String[]{"C", "Japan", "Korea", "China", "Others"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, names);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, names);
         menu.setAdapter(adapter);
 
         Spinner menu1 = (Spinner) findViewById(R.id.spinner2);
         String[] names1 = new String[]{"T", "Spicy", "Salty","Sweet"};
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, names1);
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, names1);
         menu1.setAdapter(adapter1);
 
         Spinner menu2 = (Spinner) findViewById(R.id.spinner3);
         String[] names2 = new String[]{"R", "5", "4", "3", "2", "1"};
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, names2);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, names2);
         menu2.setAdapter(adapter2);
 
         Spinner menu3 = (Spinner) findViewById(R.id.spinner4);
         String[] names3 = new String[]{"P", "from High to Low", "from Low to High"};
-        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, names3);
+        ArrayAdapter<String> adapter3 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, names3);
         menu3.setAdapter(adapter3);
 
         Spinner menu4 = (Spinner) findViewById(R.id.spinner5);
         String[] names4 = new String[]{"O", "A-Z", "Z-A"};
-        ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, names4);
+        ArrayAdapter<String> adapter4 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, names4);
         menu4.setAdapter(adapter4);
 
     }
