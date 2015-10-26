@@ -59,7 +59,7 @@ public class ImageLoader {
 
         if (bitmap != null){
             imageView.setImageBitmap(bitmap);
-            Log.v("TAG","Image loaded from cache");
+//            Log.v("TAG","Image loaded from cache");
         } else {
             final BitmapWorkerTask task = new BitmapWorkerTask(imageView,reqWidth,reqHeight);
             final AsyncDrawable asyncDrawable =
