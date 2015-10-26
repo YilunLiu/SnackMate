@@ -4,12 +4,14 @@ package com.hexad.snackmate;
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
  * Created by yilunliu on 10/24/15.
@@ -30,10 +32,12 @@ public class ImageAdapter extends BaseAdapter {
             R.drawable.snack_pic_6,R.drawable.snack_pic_7,R.drawable.snack_pic_8,
             R.drawable.snack_pic_9,R.drawable.snack_pic_10,R.drawable.snack_pic_11};
     private ImageLoader imageLoader;
+    private static LayoutInflater inflater=null;
 
     public ImageAdapter(Context c){
         context = c;
         imageLoader = new ImageLoader(c);
+        inflater = ( LayoutInflater )context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -53,21 +57,26 @@ public class ImageAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView;
 
-        if (convertView == null){
-            imageView = new ImageView(context);
-            imageView.setLayoutParams(new GridView.LayoutParams(300,300));
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(8,8,8,8);
-
+        View cell;
+        if (convertView != null){
+            cell = convertView;
         } else {
-            imageView = (ImageView) convertView;
+
+            // create a new cell
+            cell = inflater.inflate(R.layout.home_page_individual_item,null);
         }
 
-        imageLoader.loadBitmap(images[position],imageView,300,300);
+        TextView textView = (TextView) cell.findViewById(R.id.item_cell_textView);
+        ImageView imageView = (ImageView) cell.findViewById(R.id.item_cell_imageView);
 
-//        Log.d(TAG,"Loading Image at Position "+position);
-        return imageView;
+        // set text
+        textView.setText("Snack name ($5.00)");
+        // configure the image view
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        imageLoader.loadBitmap(images[position],imageView,250,250);
+
+        return cell;
+
     }
 }

@@ -11,6 +11,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.util.Log;
+import android.util.LruCache;
 import android.widget.ImageView;
 
 import java.lang.ref.WeakReference;
@@ -19,21 +21,53 @@ public class ImageLoader {
 
     private Context context;
     private Bitmap placeHolderBitmap;
+    private LruCache<String, Bitmap> memoryCache;
 
     public ImageLoader(Context c){
         context = c;
         placeHolderBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.loading);
+
+        // initialize memory cache
+        final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+        final int cacheSize = maxMemory / 8;
+        memoryCache = new LruCache<String, Bitmap>(cacheSize) {
+            @Override
+            protected int sizeOf(String key, Bitmap bitmap) {
+                // The cache size will be measured in kilobytes rather than
+                // number of items.
+                return bitmap.getByteCount() / 1024;
+            }
+        };
     }
 
 
+    // image cache setter and getter method
+    public void addBitmapToMemoryCache(String key, Bitmap bitmap) {
+        if (getBitmapFromMemCache(key) == null) {
+            memoryCache.put(key, bitmap);
+        }
+    }
+
+    public Bitmap getBitmapFromMemCache(String key) {
+        return memoryCache.get(key);
+    }
+
     public void loadBitmap(int resId, ImageView imageView, int reqWidth, int reqHeight) {
-        if (cancelPotentialWork(resId, imageView)) {
+
+        final String imageKey = String.valueOf(resId);
+        final Bitmap bitmap = getBitmapFromMemCache(imageKey);
+
+        if (bitmap != null){
+            imageView.setImageBitmap(bitmap);
+            Log.v("TAG","Image loaded from cache");
+        } else {
             final BitmapWorkerTask task = new BitmapWorkerTask(imageView,reqWidth,reqHeight);
             final AsyncDrawable asyncDrawable =
                     new AsyncDrawable(context.getResources(), placeHolderBitmap, task);
             imageView.setImageDrawable(asyncDrawable);
             task.execute(resId);
         }
+
     }
 
     public boolean cancelPotentialWork(int data, ImageView imageView) {
@@ -86,7 +120,9 @@ public class ImageLoader {
         @Override
         protected Bitmap doInBackground(Integer... params) {
             data = params[0];
-            return ImageResizer.decodeSampledBitmapFromResource(res, data, reqWidth, reqHeight);
+            final Bitmap bitmap = ImageResizer.decodeSampledBitmapFromResource(res, data, reqWidth, reqHeight);
+            addBitmapToMemoryCache(String.valueOf(params[0]), bitmap);
+            return bitmap;
         }
 
 
@@ -108,6 +144,7 @@ public class ImageLoader {
         }
     }
 
+    // Loading image before Task completed
     class AsyncDrawable extends BitmapDrawable {
         private final WeakReference<BitmapWorkerTask> bitmapWorkerTaskReference;
 
