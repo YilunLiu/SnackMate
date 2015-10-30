@@ -20,6 +20,9 @@ import android.widget.GridView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.parse.Parse;
+import com.parse.ParseObject;
+
 public class HomePage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -81,6 +84,13 @@ public class HomePage extends AppCompatActivity
         ArrayAdapter<String> adapter4 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, names4);
         menu4.setAdapter(adapter4);
 
+
+        //Some test code for Parse
+        Parse.enableLocalDatastore(this);
+        Parse.initialize(this, "QrdsALfd999wYmrLRoD0sAuEnc7803FQ83bC9Dkn", "DYYdNF47NEUA4LXeRsLivt2RbTcwIhSevzo4iRVq");
+        ParseObject testObject = new ParseObject("Testing");
+        testObject.put("foo", "bar");
+        testObject.saveInBackground();
     }
 
     @Override
