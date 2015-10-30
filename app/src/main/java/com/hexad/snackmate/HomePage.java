@@ -20,6 +20,7 @@ import android.widget.GridView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.hexad.snackmate.Items.SnackItem;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
@@ -84,6 +85,9 @@ public class HomePage extends AppCompatActivity
         ArrayAdapter<String> adapter4 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, names4);
         menu4.setAdapter(adapter4);
 
+
+        //set up for parse objects
+        ParseObject.registerSubclass(SnackItem.class);
 
         //Some test code for Parse
         Parse.enableLocalDatastore(this);
