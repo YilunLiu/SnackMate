@@ -2,6 +2,7 @@ package com.hexad.snackmate;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,7 +22,7 @@ import android.widget.TextView;
 public class ImageAdapter extends BaseAdapter {
 
     private static final String TAG = ImageAdapter.class.getSimpleName();
-
+    private ImageView temp;
     private Context context;
     private Integer[] images = {R.drawable.snack_pic_1,R.drawable.snack_pic_2,
             R.drawable.snack_pic_3,R.drawable.snack_pic_4,R.drawable.snack_pic_5,
@@ -68,13 +69,24 @@ public class ImageAdapter extends BaseAdapter {
         }
 
         TextView textView = (TextView) cell.findViewById(R.id.item_cell_textView);
-        ImageView imageView = (ImageView) cell.findViewById(R.id.item_cell_imageView);
+        final ImageView imageView = (ImageView) cell.findViewById(R.id.item_cell_imageView);
 
         // set text
         textView.setText("Snack name ($5.00)");
         // configure the image view
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageLoader.loadBitmap(images[position],imageView,250,250);
+        imageView.setTag(position);
+        imageLoader.loadBitmap(images[position], imageView, 250, 250);
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ItemDetailActivity.class);
+
+                intent.putExtra("ImgID", (int) imageView.getTag());
+                context.startActivity(intent);
+            }
+        });
 
         return cell;
 
