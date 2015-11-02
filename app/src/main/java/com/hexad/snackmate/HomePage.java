@@ -29,13 +29,11 @@ import com.parse.ParseObject;
 public class HomePage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private Spinner filter,sort;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
         setContentView(R.layout.activity_home_page);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -62,31 +60,9 @@ public class HomePage extends AppCompatActivity
         GridView gridView = (GridView) findViewById(R.id.homepage_gridview);
         gridView.setAdapter(new ImageAdapter(this));
 
-        Spinner menu = (Spinner) findViewById(R.id.spinner1);
-        String[] names = new String[]{"C", "J", "K", "C", "O"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, names);
-        menu.setAdapter(adapter);
-
-        Spinner menu1 = (Spinner) findViewById(R.id.spinner2);
-        String[] names1 = new String[]{"T", "S", "S","S"};
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, names1);
-        menu1.setAdapter(adapter1);
-
-        Spinner menu2 = (Spinner) findViewById(R.id.spinner3);
-        String[] names2 = new String[]{"R", "5", "4", "3", "2", "1"};
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, names2);
-        menu2.setAdapter(adapter2);
-
-        Spinner menu3 = (Spinner) findViewById(R.id.spinner4);
-        String[] names3 = new String[]{"P", "f", "f"};
-        ArrayAdapter<String> adapter3 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, names3);
-        menu3.setAdapter(adapter3);
-
-        Spinner menu4 = (Spinner) findViewById(R.id.spinner5);
-        String[] names4 = new String[]{"O", "Z", "A"};
-        ArrayAdapter<String> adapter4 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, names4);
-        menu4.setAdapter(adapter4);
-
+        //Set up spinner objects and add listeners for them
+        addItemsOnSpinners();
+        addListenerOnSpinnerItemSelection();
 
         //set up for parse objects
         ParseObject.registerSubclass(SnackItem.class);
@@ -94,9 +70,9 @@ public class HomePage extends AppCompatActivity
         //Some test code for Parse
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, "QrdsALfd999wYmrLRoD0sAuEnc7803FQ83bC9Dkn", "DYYdNF47NEUA4LXeRsLivt2RbTcwIhSevzo4iRVq");
-        ParseObject testObject = new ParseObject("Testing");
+       /* ParseObject testObject = new ParseObject("Testing");
         testObject.put("foo", "bar");
-        testObject.saveInBackground();
+        testObject.saveInBackground();*/
 
 
     }
@@ -160,5 +136,28 @@ public class HomePage extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void addItemsOnSpinners(){
+        filter = (Spinner) findViewById(R.id.spinner1);
+        String[] names = new String[]{"Filter","Origins", "Tastes"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, names);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        filter.setAdapter(adapter);
+
+
+        sort = (Spinner) findViewById(R.id.spinner2);
+        String[] names1 = new String[]{"Sort", "Price high to low", "Price low to high", "Ratings", "Alphabetical Order"};
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, names1);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sort.setAdapter(adapter1);
+
+    }
+
+    public void addListenerOnSpinnerItemSelection() {
+
+        filter.setOnItemSelectedListener(new SpinnerActivity());
+        sort.setOnItemSelectedListener(new SpinnerActivity());
+
     }
 }
