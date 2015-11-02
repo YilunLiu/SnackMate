@@ -11,6 +11,6 @@ public class AlphabetComparator  implements Comparator {
     public int compare(Object o1, Object o2){
         String title1 = ((SnackItem)o1).getTitle();
         String title2 = ((SnackItem)o2).getTitle();
-        return title1.compareTo(title2);
+        return title1.compareToIgnoreCase(title2);
     }
 }
