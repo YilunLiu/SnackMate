@@ -1,6 +1,36 @@
 SnackMate - a shopping app for snack
 
 ### Milestone ###
+1. shuffle function to be implemented
+	- right: add to wish list
+	- left: dislike
+	- icon of shuffle: random play
+2. After clicking on an item
+	- the price ($) and rating (star) should be above "add to cart"
+	- description comes after "add to cart"
+3. change color of the side bar to purple
+4. the default user icon should be a profile-looking picture
+
+
+### Notes ### 11.2.2016
+
+Side bar
+	color: same as icon
+	user profile picture
+Shuffle
+	random play icon
+Wishlist
+	picture + item name + price
+Rating
+	font bigger
+	use icon (optional)
+Review
+	description after "add to cart"
+	cancel comment
+
+
+
+### Milestone ###
 Item detail
 	picture, name, price, rating
 	pic + name both clickable from homepage
