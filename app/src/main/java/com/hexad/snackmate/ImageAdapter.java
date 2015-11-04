@@ -4,6 +4,7 @@ package com.hexad.snackmate;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hexad.snackmate.Enumerations.SortType;
+import com.hexad.snackmate.Items.Global;
 import com.hexad.snackmate.Items.SnackItem;
 import com.hexad.snackmate.Items.SnackItemService;
 import com.parse.ParseObject;
@@ -32,7 +34,7 @@ public class ImageAdapter extends BaseAdapter {
 
     private static final String TAG = ImageAdapter.class.getSimpleName();
     private List<SnackItem> list;
-    private ImageView temp;
+
     private Context context;
     private Integer[] images = {R.drawable.snack_pic_1,R.drawable.snack_pic_2,
             R.drawable.snack_pic_3,R.drawable.snack_pic_4,R.drawable.snack_pic_5,
@@ -49,7 +51,7 @@ public class ImageAdapter extends BaseAdapter {
         context = c;
         imageLoader = new ImageLoader(c);
         inflater = ( LayoutInflater )context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        list = SnackItemService.getAllSnackItemsSync();
+        list = Global.list;
     }
 
     @Override
@@ -71,15 +73,17 @@ public class ImageAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         View cell;
+
         if (convertView != null){
             cell = convertView;
+
         } else {
 
             // create a new cell
             cell = inflater.inflate(R.layout.home_page_individual_item,null);
         }
 
-        TextView textView = (TextView) cell.findViewById(R.id.item_cell_textView);
+        final TextView textView = (TextView) cell.findViewById(R.id.item_cell_textView);
         final ImageView imageView = (ImageView) cell.findViewById(R.id.item_cell_imageView);
         SnackItem item = list.get(position);
         // set text
@@ -90,18 +94,10 @@ public class ImageAdapter extends BaseAdapter {
 
         // configure the image view
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setTag(position);
+
         imageLoader.loadBitmap(images[position], imageView, 250, 250);
 
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, ItemDetailActivity.class);
 
-                intent.putExtra("ImgID", (int) imageView.getTag());
-                context.startActivity(intent);
-            }
-        });
 
         return cell;
 
@@ -132,4 +128,5 @@ public class ImageAdapter extends BaseAdapter {
         notifyDataSetChanged();
 
     }
+
 }

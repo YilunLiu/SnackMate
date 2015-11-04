@@ -18,48 +18,21 @@
     tools:context="com.hexad.snackmate.ItemDetailActivity">
 
     <ImageView
-        android:id="@+id/image_view"
+        android:id="@+id/image_itemdetail_view"
         android:layout_width="wrap_content"
         android:layout_height="300dp"/>
     <TextView
+        android:id="@+id/title_itemdetail_view"
+        android:layout_marginTop="12dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="$5.00 per pack"/>
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="16dp"
-        android:gravity="center"
-        android:text="Rating: 4.9/5"/>
+        android:gravity="center"/>
+
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Add To Cart"/>
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="This is the review"/>
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="This is anthor review!"/>
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="This is anthor review!"/>
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="This is anthor review!"/>
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="This is anthor review!"/>
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="This is anthor review!"/>
+
 </LinearLayout>
 </ScrollView>

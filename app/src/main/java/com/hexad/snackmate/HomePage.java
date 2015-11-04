@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -67,7 +68,16 @@ public class HomePage extends AppCompatActivity
         // Set up gridview on the homepage
         GridView gridView = (GridView) findViewById(R.id.homepage_gridview);
         gridView.setAdapter(new ImageAdapter(this));
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("HomePage", "Clicked");
+                Intent intent = new Intent(HomePage.this, ItemDetailActivity.class);
+                intent.putExtra("itemid", position);
+                startActivity(intent);
 
+            }
+        });
         //Set up spinner objects and add listeners for them
         addItemsOnSpinners();
         addListenerOnSpinnerItemSelection();
