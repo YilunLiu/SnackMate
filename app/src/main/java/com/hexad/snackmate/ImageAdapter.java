@@ -2,25 +2,15 @@ package com.hexad.snackmate;
 
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridLayout;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hexad.snackmate.Enumerations.SortType;
-import com.hexad.snackmate.Items.Global;
 import com.hexad.snackmate.Items.SnackItem;
-import com.hexad.snackmate.Items.SnackItemService;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 
 import java.util.Collections;
 import java.util.List;

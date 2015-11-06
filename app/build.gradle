@@ -26,5 +26,6 @@ dependencies {
     compile 'com.android.support:design:23.1.0'
     compile 'com.parse.bolts:bolts-android:1.+'
     compile 'com.parse:parse-android:1.+'
+    compile 'com.github.kikoso:SwipeableCards:1.1-RELEASE@aar'
 
 }
