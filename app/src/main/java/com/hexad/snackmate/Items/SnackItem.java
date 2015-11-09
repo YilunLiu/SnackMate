@@ -29,14 +29,14 @@ import com.parse.ParseQuery;
 public class SnackItem extends ParseObject {
 
     /* declear key for values in Parse Object */
-    private static String titleKey = "title";
-    private static String descriptionKey = "description";
-    private static String imageURLKey = "imageURL";
-    private static String priceKey = "price";
-    private static String countryKey = "country";
-    private static String tasteKey = "taste";
-    private static String avgRatingKey = "avgRating";
-    private static String reviewsKey = "reviews";
+    public static String titleKey = "title";
+    public static String descriptionKey = "description";
+    public static String imageURLKey = "imageURL";
+    public static String priceKey = "price";
+    public static String countryKey = "country";
+    public static String tasteKey = "taste";
+    public static String avgRatingKey = "avgRating";
+    public static String reviewsKey = "reviews";
 
 
     /* getter method */
