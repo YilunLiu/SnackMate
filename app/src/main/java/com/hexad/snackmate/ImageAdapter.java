@@ -2,25 +2,16 @@ package com.hexad.snackmate;
 
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridLayout;
-import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.hexad.snackmate.Enumerations.SortType;
-import com.hexad.snackmate.Items.Global;
 import com.hexad.snackmate.Items.SnackItem;
-import com.hexad.snackmate.Items.SnackItemService;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 
 import java.util.Collections;
 import java.util.List;
@@ -88,9 +79,10 @@ public class ImageAdapter extends BaseAdapter {
         SnackItem item = list.get(position);
         // set text
         String message = item.getTitle() + " $"
-                + item.getPrice().toString() + "\n" + " Rating: " +
-                item.getAverageRating().toString();
+                + item.getPrice().toString();
         textView.setText(message);
+        RatingBar ratingbar = (RatingBar)cell.findViewById(R.id.rating_bar);
+        ratingbar.setRating(item.getAverageRating().floatValue());
 
         // configure the image view
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);

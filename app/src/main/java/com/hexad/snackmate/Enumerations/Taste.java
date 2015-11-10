@@ -8,9 +8,9 @@ import java.util.Map;
  */
 public enum Taste {
 
-    Sweet(0), Sour(1), Spicy(2), Salty(3), Others(4);
+    All(-1),Sweet(0), Sour(1), Spicy(2), Salty(3), Others(4);
 
-    private int value;
+    public int value;
 
     private Taste(int value){
         this.value = value;
@@ -34,6 +34,7 @@ public enum Taste {
 
     public String toString(){
         switch (this){
+            case All: return "All";
             case Sweet: return "Sweet";
             case Sour: return "Sour";
             case Spicy: return "Spicy";

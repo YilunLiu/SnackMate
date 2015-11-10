@@ -11,9 +11,9 @@ import java.util.Map;
     int value is the country code
  */
 public enum Country{
-    China(86), Japan(81), North_Korea(850), Others(0);
+    China(86), Japan(81), North_Korea(850), Others(0), All(-1);
 
-    private int country_code;
+    public int country_code;
 
     private Country(int countryCode){
         this.country_code = countryCode;
@@ -37,6 +37,7 @@ public enum Country{
 
     public String toString(){
         switch (this){
+            case All: return "All";
             case China: return "China";
             case Japan: return "Japan";
             case North_Korea: return "North Korea";
