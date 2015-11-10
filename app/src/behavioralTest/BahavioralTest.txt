@@ -1,0 +1,95 @@
+SnackMate Behavioral Test
+
+# features not yet implemented
+* logics to insert after a new feature is added
+-> same behavior as previous section
+
+
+1. Normal browsing
+Given the user opens the app
+And the homepage shows up
+When user taps on an item (either picture or title)
+Then a detailed item page shows up
+
+-----
+
+2. Normal browing exit
+Given the user is on item detail page
+When the user taps back button
+Then homepage shows up
+
+-----
+
+3. Sorting
+Given the user is on homepage
+When user taps on sorting
+Then a dropdown menu shows up
+When user taps sort by (category)
+Then the dropdown menu disappears
+And the items are reordered
+
+-----
+
+4. Filtering
+Given the user is on homepage
+When user taps on filtering
+Then a dropdown menu shows up
+When user taps on (a category)
+Then the dropdown menu disappears
+And only the revelant items are on the homepage
+
+-----
+
+5. Sidebar
+Given the user is on homepage
+When the user swipes from left edge of the screen
+Or taps the button on the top left corner
+Then a side bar shows up
+
+-----
+
+6. Shuffle
+Given the user is on homepage
+When the user taps the button on the top right corner
+Then the shuffle page shows up with a random snack picture in the middle
+
+1) When the user swipes left 
+Or taps the dislike button
+Then the animation plays
+And a new picture shows up
+
+2) When the user swipes right
+Or taps like button
+Then the animation plays
+*Given the user has logged in
+Then a message shows up saying the item has been added to cart
+And a new picture shows up
+
+# Given the user has not yet logged in
+# TODO
+
+3) When the user taps back button
+Then homepage shows up
+
+# 4) When the user taps view wish list button
+# Then the wish list shows up
+
+-----
+
+7. First time user - Login, register, and guest checkout
+Given the user downloaded the app,
+When user opens the app for the first time,
+
+# Then a login/register page shows up
+# When user logs in/taps on log in later
+
+-> 1. Normal browsing
+
+# When user taps on add to wish list
+# And the user hasn't logged in
+# Then a login page shows up
+
+# When user taps on add to cart
+# And the user hasn't logged in
+# Then a login page shows up
+# With an option of guest checkout
