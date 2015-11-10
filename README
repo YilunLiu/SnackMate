@@ -1,6 +1,23 @@
 SnackMate - a shopping app for snack
 
 ### Milestone ###
+1. Wish list
+2. Shopping cart
+3. Login & Sign up
+4. Upload profile picture
+
+
+### Notes ### 11.9.2016
+
+Wish list interface
+	List view (picture, title, price, rating, add to cart & remove)
+Shopping cart
+	Check out button at bottom
+	List view (picture + title + price + rating + item quantity)
+Login & Sign up
+
+
+### Milestone ###
 1. shuffle function to be implemented
 	- right: add to wish list
 	- left: dislike
