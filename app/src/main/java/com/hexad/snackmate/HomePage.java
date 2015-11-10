@@ -37,13 +37,6 @@ public class HomePage extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-        //set up for parse objects
-        ParseObject.registerSubclass(SnackItem.class);
-
-        //Some test code for Parse
-        Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "QrdsALfd999wYmrLRoD0sAuEnc7803FQ83bC9Dkn", "DYYdNF47NEUA4LXeRsLivt2RbTcwIhSevzo4iRVq");
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -165,4 +158,7 @@ public class HomePage extends AppCompatActivity
         sort.setOnItemSelectedListener(new SpinnerActivity());
 
     }
+
+
+
 }
