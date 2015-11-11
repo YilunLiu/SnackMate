@@ -21,33 +21,40 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-import com.hexad.snackmate.Items.SnackItem;
-import com.parse.Parse;
-import com.parse.ParseObject;
+import com.parse.ParseUser;
+import com.parse.ui.ParseLoginBuilder;
 
 public class HomePage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final int LOGIN_REQUEST = 0;
     private Spinner filter,sort;
+    private ParseUser currentUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        if (currentUser != null) {
+//            // User clicked to log out.
+//            ParseUser.logOut();
+//            currentUser = null;
+//        } else {
+//            // User clicked to log in.
+//            ParseLoginBuilder loginBuilder = new ParseLoginBuilder(
+//                    HomePage.this);
+//            startActivityForResult(loginBuilder.build(), LOGIN_REQUEST);
+//        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-        //set up for parse objects
-        ParseObject.registerSubclass(SnackItem.class);
 
-        //Some test code for Parse
-        Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "QrdsALfd999wYmrLRoD0sAuEnc7803FQ83bC9Dkn", "DYYdNF47NEUA4LXeRsLivt2RbTcwIhSevzo4iRVq");
+
+//        Parse.initialize(this, "QrdsALfd999wYmrLRoD0sAuEnc7803FQ83bC9Dkn", "DYYdNF47NEUA4LXeRsLivt2RbTcwIhSevzo4iRVq");
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
