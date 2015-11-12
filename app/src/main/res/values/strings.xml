@@ -29,6 +29,6 @@
 
     <!-- STRING CONSTANTS FOR WISHLIST-->
     <string name="wishlist_remove">Remove from WishList</string>
-    <string name="wishlist_checkout">Checkout</string>
+    <string name="wishlist_addtocart">Add to Cart</string>
 
 </resources>

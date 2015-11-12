@@ -84,6 +84,9 @@
         <activity android:name=".ShuffleActivity" >
         </activity>
 
+        <activity android:name=".WishList" >
+        </activity>
+
         <meta-data
             android:name="com.parse.APPLICATION_ID"
             android:value="@string/parse_app_id" />
