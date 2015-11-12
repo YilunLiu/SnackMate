@@ -35,23 +35,9 @@ public class HomePage extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        if (currentUser != null) {
-//            // User clicked to log out.
-//            ParseUser.logOut();
-//            currentUser = null;
-//        } else {
-//            // User clicked to log in.
-//            ParseLoginBuilder loginBuilder = new ParseLoginBuilder(
-//                    HomePage.this);
-//            startActivityForResult(loginBuilder.build(), LOGIN_REQUEST);
-//        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-
-
-
-//        Parse.initialize(this, "QrdsALfd999wYmrLRoD0sAuEnc7803FQ83bC9Dkn", "DYYdNF47NEUA4LXeRsLivt2RbTcwIhSevzo4iRVq");
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -113,11 +99,6 @@ public class HomePage extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-
         if (id == R.id.action_shuffle) {
             Intent intent = new Intent(HomePage.this, ShuffleActivity.class);
             startActivity(intent);
@@ -131,17 +112,19 @@ public class HomePage extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camara) {
+        if (id == R.id.nav_wish) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+            Intent intent = new Intent(HomePage.this, WishList.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_history){
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_cart) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_contact) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_setting) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_logout) {
 
         }
 
