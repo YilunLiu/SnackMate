@@ -1,13 +1,18 @@
 package com.hexad.snackmate;
 
 import android.app.Application;
+import android.util.Log;
 
+import com.facebook.FacebookSdk;
 import com.hexad.snackmate.Items.SnackItem;
 import com.hexad.snackmate.Items.SnackItemService;
+import com.parse.LogInCallback;
 import com.parse.Parse;
+import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
 import com.parse.ParseTwitterUtils;
+import com.parse.ParseUser;
 
 /**
  * Created by Michael Ji on 11/10/2015.
@@ -29,6 +34,7 @@ public class SnackMate extends Application {
 
 //        Parse.setLogLevel(Parse.LOG_LEVEL_DEBUG);
 
+        FacebookSdk.sdkInitialize(getApplicationContext());
         ParseFacebookUtils.initialize(this);
 
         // Optional - If you don't want to allow Twitter login, you can

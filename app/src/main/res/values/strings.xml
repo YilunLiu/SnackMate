@@ -16,8 +16,8 @@
     <string name="parse_app_id">QrdsALfd999wYmrLRoD0sAuEnc7803FQ83bC9Dkn</string>
     <string name="parse_client_key">DYYdNF47NEUA4LXeRsLivt2RbTcwIhSevzo4iRVq</string>
     <string name="facebook_app_id">1637894026477373</string>
-    <string name="twitter_consumer_key">Dh3zzQpnl91cgX4MIMdVYDT7h</string>
-    <string name="twitter_consumer_secret">xjyfPSsImREbxpiSnq6AMEtWzhm5uvzYvF7hW1lAkOO0rtwdma</string>
+    <string name="twitter_consumer_key">KAjETziFogmaE1prouEjia7v0</string>
+    <string name="twitter_consumer_secret">DH6OqqGZOtlFr5ocTz1BHN9vqEfaOPrGeRVeodw8toVZW8RIKc</string>
 
     <!-- STRING CONSTANTS FOR PROFILE-->
     <string name="profile_logo_content_description">Logo</string>
