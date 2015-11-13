@@ -1,9 +1,11 @@
 package com.hexad.snackmate;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -16,7 +18,7 @@ import com.parse.ui.ParseLoginBuilder;
  * Display profile including current user email, name and buttons to signin/signout
  * and to go to homepage
  */
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends Activity {
     private static final int LOGIN_REQUEST = 0;
     private TextView titleTextView;
     private TextView emailTextView;
@@ -28,7 +30,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.activity_profile);
         titleTextView = (TextView) findViewById(R.id.profile_title);

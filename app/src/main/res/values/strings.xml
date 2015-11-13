@@ -27,4 +27,8 @@
     <string name="profile_login_button_label">Log in</string>
     <string name="profile_homepage_label">Go to Home Page</string>
 
+    <!-- STRING CONSTANTS FOR WISHLIST-->
+    <string name="wishlist_remove">Remove from WishList</string>
+    <string name="wishlist_checkout">Checkout</string>
+
 </resources>
