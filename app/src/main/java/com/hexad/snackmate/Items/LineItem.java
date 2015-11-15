@@ -32,7 +32,7 @@ public class LineItem extends ParseObject {
     public static String avgRatingKey = "avgRating";
 
     public LineItem(){
-        super("LineTtem");
+//        super("LineTtem");
     }
 //    public LineItem(SnackItem snackItem){
 //        super("LineItem");

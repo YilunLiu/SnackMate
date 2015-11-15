@@ -2,6 +2,7 @@ package com.hexad.snackmate;
 
 import android.app.Application;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 import com.hexad.snackmate.Items.LineItem;
@@ -31,7 +32,7 @@ public class SnackMate extends Application {
         ParseObject.registerSubclass(LineItem.class);
         //Some test code for Parse
         Parse.enableLocalDatastore(this);
-        Parse.initialize(this);
+        Parse.initialize(this,getString(R.string.parse_app_id),getString(R.string.parse_client_key));
 
 //        Parse.setLogLevel(Parse.LOG_LEVEL_DEBUG);
 

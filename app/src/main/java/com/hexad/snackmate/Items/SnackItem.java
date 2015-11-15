@@ -38,7 +38,10 @@ public class SnackItem extends ParseObject {
     public static String avgRatingKey = "avgRating";
     public static String reviewsKey = "reviews";
 
+    /*default constructor*/
+    public SnackItem(){
 
+    }
     /* getter method */
 
     public String getTitle(){
