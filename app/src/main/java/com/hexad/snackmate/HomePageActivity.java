@@ -2,10 +2,6 @@ package com.hexad.snackmate;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -19,14 +15,18 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
+import com.hexad.snackmate.Items.LineItem;
+import com.hexad.snackmate.Items.SnackItem;
 import com.parse.ParseUser;
-import com.parse.ui.ParseLoginBuilder;
 
-public class HomePage extends AppCompatActivity
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
+public class HomePageActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final int LOGIN_REQUEST = 0;
@@ -40,6 +40,16 @@ public class HomePage extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
+
+        ParseUser user = ParseUser.getCurrentUser();
+        if (user.getList("wishList") == null){
+            user.put("wishList", new ArrayList<SnackItem>());
+            user.saveInBackground();
+        }
+        if (user.getList("cart") == null){
+            user.put("cart", new ArrayList<LineItem>());
+            user.saveInBackground();
+        }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -58,8 +68,8 @@ public class HomePage extends AppCompatActivity
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("HomePage", "Clicked");
-                Intent intent = new Intent(HomePage.this, ItemDetailActivity.class);
+
+                Intent intent = new Intent(HomePageActivity.this, ItemDetailActivity.class);
                 intent.putExtra("itemid", position);
                 startActivity(intent);
 
@@ -101,7 +111,7 @@ public class HomePage extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.action_shuffle) {
-            Intent intent = new Intent(HomePage.this, ShuffleActivity.class);
+            Intent intent = new Intent(HomePageActivity.this, ShuffleActivity.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
@@ -115,11 +125,13 @@ public class HomePage extends AppCompatActivity
 
         if (id == R.id.nav_wish) {
             // Handle the camera action
-            Intent intent = new Intent(HomePage.this, WishList.class);
+            Intent intent = new Intent(HomePageActivity.this, WishListActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_history){
 
         } else if (id == R.id.nav_cart) {
+            Intent intent = new Intent(HomePageActivity.this, CartActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_contact) {
 

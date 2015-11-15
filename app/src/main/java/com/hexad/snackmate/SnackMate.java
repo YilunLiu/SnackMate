@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import com.facebook.FacebookSdk;
+import com.hexad.snackmate.Items.LineItem;
 import com.hexad.snackmate.Items.SnackItem;
 import com.hexad.snackmate.Items.SnackItemService;
 import com.parse.LogInCallback;
@@ -27,7 +28,7 @@ public class SnackMate extends Application {
         // Required - Initialize the Parse SDK
         //set up for parse objects
         ParseObject.registerSubclass(SnackItem.class);
-
+        ParseObject.registerSubclass(LineItem.class);
         //Some test code for Parse
         Parse.enableLocalDatastore(this);
         Parse.initialize(this);

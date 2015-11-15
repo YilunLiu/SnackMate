@@ -27,14 +27,7 @@ public class ImageAdapter extends BaseAdapter {
     private List<SnackItem> list;
 
     private Context context;
-    private Integer[] images = {R.drawable.snack_pic_1,R.drawable.snack_pic_2,
-            R.drawable.snack_pic_3,R.drawable.snack_pic_4,R.drawable.snack_pic_5,
-            R.drawable.snack_pic_6,R.drawable.snack_pic_7,R.drawable.snack_pic_8,
-            R.drawable.snack_pic_9,R.drawable.snack_pic_10,R.drawable.snack_pic_11,
-            R.drawable.snack_pic_1,R.drawable.snack_pic_2,
-            R.drawable.snack_pic_3,R.drawable.snack_pic_4,R.drawable.snack_pic_5,
-            R.drawable.snack_pic_6,R.drawable.snack_pic_7,R.drawable.snack_pic_8,
-            R.drawable.snack_pic_9,R.drawable.snack_pic_10,R.drawable.snack_pic_11};
+    private Integer[] images = Global.images;
     private ImageLoader imageLoader;
     private static LayoutInflater inflater=null;
 

@@ -36,6 +36,9 @@ import android.view.Window;
 
 import com.parse.Parse;
 import com.parse.ParseFacebookUtils;
+import com.parse.ParseUser;
+
+import java.util.List;
 
 /**
  * Encapsulates the Parse login flow. The user can log in by username/password,
@@ -161,11 +164,11 @@ public class ParseLoginActivity extends FragmentActivity implements
    */
   @Override
   public void onLoginSuccess() {
-    // This default implementation returns to the parent activity with
-    // RESULT_OK.
-    // You can change this implementation if you want a different behavior.
-    setResult(RESULT_OK);
-    finish();
+      // This default implementation returns to the parent activity with
+      // RESULT_OK.
+      // You can change this implementation if you want a different behavior.
+      setResult(RESULT_OK);
+      finish();
   }
 
   /**

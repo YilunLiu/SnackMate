@@ -40,6 +40,7 @@ public class SnackItem extends ParseObject {
 
 
     /* getter method */
+
     public String getTitle(){
         return getString(titleKey);
     }
