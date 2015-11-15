@@ -54,6 +54,7 @@ public class ImageLoader {
         }
     }
 
+
     private void queuePhoto(String url, ImageView imageView) {
         PhotoToLoad p = new PhotoToLoad(url, imageView);
         executorService.submit(new PhotosLoader(p));

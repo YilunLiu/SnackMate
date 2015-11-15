@@ -1,6 +1,15 @@
 package com.hexad.snackmate;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,11 +24,18 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
+import com.hexad.snackmate.Activities.UploadImageActivity;
 import com.hexad.snackmate.Items.LineItem;
 import com.hexad.snackmate.Items.SnackItem;
+import com.hexad.snackmate.Utils.ImageLoader;
+import com.hexad.snackmate.Utils.ImageResizer;
+import com.hexad.snackmate.Utils.Utils;
 import com.parse.ParseUser;
+import com.parse.ui.ParseLoginActivity;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -32,6 +48,8 @@ public class HomePageActivity extends AppCompatActivity
     private static final int LOGIN_REQUEST = 0;
     private Spinner filter,sort;
     private ParseUser currentUser;
+
+    private static final int UPLOAD_ACTIVITY_REQUEST = 1;
 
 
     @Override
@@ -80,6 +98,24 @@ public class HomePageActivity extends AppCompatActivity
         addListenerOnSpinnerItemSelection();
 
 
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode){
+            case UPLOAD_ACTIVITY_REQUEST:{
+                if (resultCode == RESULT_OK && data != null){
+                    ImageView profileImage = (ImageView) findViewById(R.id.nav_profile_image);
+                    String picturePath = data.getStringExtra("picturePath");
+                    Bitmap bitmap = ImageResizer.decodeSampledBitmapFromFile(picturePath, 500, 500);
+                    profileImage.setImageBitmap(Utils.getCircleBitmap(bitmap));
+                    profileImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                }
+            }
+        }
     }
 
     @Override
@@ -99,6 +135,34 @@ public class HomePageActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.home_page, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
         //SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+
+        currentUser = ParseUser.getCurrentUser();
+        String username = currentUser != null ? currentUser.getString("name") : "Guest";
+
+        ImageView navImageView = (ImageView) findViewById(R.id.nav_profile_image);
+        TextView navUsernameView = (TextView) findViewById(R.id.nav_username);
+        navUsernameView.setText("Hello," + username);
+
+        if (ParseUser.getCurrentUser() != null){
+            ImageLoader imageLoader = new ImageLoader(this);
+            imageLoader.displayImage(ParseUser.getCurrentUser().getParseFile("profilePicture").getUrl(),
+                    navImageView);
+        }
+
+
+        navImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = null;
+                if (currentUser != null) {
+                    intent = new Intent(HomePageActivity.this, UploadImageActivity.class);
+                    startActivityForResult(intent,UPLOAD_ACTIVITY_REQUEST);
+                } else {
+                    intent = new Intent(HomePageActivity.this, ParseLoginActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -168,4 +232,6 @@ public class HomePageActivity extends AppCompatActivity
         sort.setOnItemSelectedListener(new SpinnerActivity());
 
     }
+
+
 }
