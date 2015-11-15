@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.hexad.snackmate.Items.LineItem;
 import com.hexad.snackmate.Items.SnackItem;
+import com.hexad.snackmate.Utils.ImageLoader;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -53,7 +54,7 @@ public class ItemDetailActivity extends AppCompatActivity {
 
         int pictureWidth = (int) (this.getResources().getDisplayMetrics().widthPixels * 0.8);
         ImageView imageView = (ImageView) findViewById(R.id.image_itemdetail_view);
-        imageLoader.loadBitmap(Global.images[id], imageView, pictureWidth, pictureWidth);
+        imageLoader.displayImage(item.getImageURL(), imageView);
 
         Button wish = (Button)findViewById(R.id.item_detail_wish);
         wish.setOnClickListener(new View.OnClickListener() {

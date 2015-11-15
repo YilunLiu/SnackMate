@@ -12,6 +12,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.hexad.snackmate.Items.SnackItem;
+import com.hexad.snackmate.Utils.ImageLoader;
 
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class WishListItemAdapter extends ArrayAdapter<SnackItem> {
         txt.setText(item.getTitle());
         bar.setRating(item.getAverageRating().floatValue());
         img.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageLoader.loadBitmap(Global.images[position], img, 250, 250);
+        imageLoader.displayImage(item.getImageURL(),img);
         return view;
 
 

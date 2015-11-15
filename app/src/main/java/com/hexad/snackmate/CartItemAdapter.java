@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.hexad.snackmate.Items.LineItem;
 import com.hexad.snackmate.Items.SnackItem;
+import com.hexad.snackmate.Utils.ImageLoader;
 
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class CartItemAdapter extends ArrayAdapter<LineItem>{
         txt.setText(item.getTitle()+"*"+item.getCount());
         bar.setRating(item.getAverageRating().floatValue());
         img.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageLoader.loadBitmap(Global.images[position], img, 250, 250);
+        imageLoader.displayImage(item.getImageURL(),img);
         return view;
 
 

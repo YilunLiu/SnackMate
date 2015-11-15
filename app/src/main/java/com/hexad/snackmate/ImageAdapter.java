@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.hexad.snackmate.Enumerations.SortType;
 import com.hexad.snackmate.Items.SnackItem;
+import com.hexad.snackmate.Utils.ImageLoader;
 
 import java.util.Collections;
 import java.util.List;
@@ -79,9 +80,7 @@ public class ImageAdapter extends BaseAdapter {
 
         // configure the image view
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-
-        imageLoader.loadBitmap(images[position], imageView, 250, 250);
-
+        imageLoader.displayImage(item.getImageURL(),imageView);
 
 
         return cell;

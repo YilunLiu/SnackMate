@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.andtinder.view.CardContainer;
 import com.hexad.snackmate.Items.SnackItem;
+import com.hexad.snackmate.Utils.ImageLoader;
 
 import java.util.List;
 import java.util.Random;
@@ -26,6 +27,7 @@ import java.util.Random;
  */
 public class ShuffleActivity extends Activity {
 
+    private ImageLoader imageLoader;
     private int size = Global.list.size();
     int windowwidth;
     int screenCenter;
@@ -47,6 +49,7 @@ public class ShuffleActivity extends Activity {
         parentView = (RelativeLayout) findViewById(R.id.shuffle_root);
         windowwidth = getWindowManager().getDefaultDisplay().getWidth();
         screenCenter = windowwidth / 2;
+        imageLoader = new ImageLoader(this);
         generateItem();
     }
 
@@ -68,7 +71,7 @@ public class ShuffleActivity extends Activity {
         m_view.setX(100);
         m_view.setY(200);
         m_view.setTag(i);
-        m_image.setImageResource(myImageList[i]);
+        imageLoader.displayImage(item.getImageURL(),m_image);
         parentView.addView(m_view);
 
 

@@ -3,6 +3,7 @@ package com.hexad.snackmate.Items;
 import com.hexad.snackmate.Enumerations.Country;
 import com.hexad.snackmate.Enumerations.Taste;
 import com.parse.ParseClassName;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -31,7 +32,7 @@ public class SnackItem extends ParseObject {
     /* declear key for values in Parse Object */
     public static String titleKey = "title";
     public static String descriptionKey = "description";
-    public static String imageURLKey = "imageURL";
+    public static String imageKey = "image";
     public static String priceKey = "price";
     public static String countryKey = "country";
     public static String tasteKey = "taste";
@@ -52,8 +53,12 @@ public class SnackItem extends ParseObject {
         return getString(descriptionKey);
     }
 
+    public ParseFile getImage(){
+        return getParseFile(imageKey);
+    }
+
     public String getImageURL(){
-        return getString(imageURLKey);
+        return getImage().getUrl();
     }
 
     public Double getPrice(){

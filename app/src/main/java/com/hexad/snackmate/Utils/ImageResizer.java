@@ -1,4 +1,4 @@
-package com.hexad.snackmate;
+package com.hexad.snackmate.Utils;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
