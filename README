@@ -1,5 +1,22 @@
 SnackMate - a shopping app for snack
 
+
+### Miletone 1.4
+1. Guest checkout
+2. Search
+3. Filter
+
+### Notes ### 11.16.2015
+Guest checkout: purchase history: pop up; wishlist enabled
+Intro page
+Purchase history (x)
+Contact us
+Account/credit and debit card, address, name
+Remove from wishlist
+Change login page icon
+Change icon
+
+
 ### Milestone ###
 1. Wish list
 2. Shopping cart
@@ -7,7 +24,7 @@ SnackMate - a shopping app for snack
 4. Upload profile picture
 
 
-### Notes ### 11.9.2016
+### Notes ### 11.9.2015
 
 Wish list interface
 	List view (picture, title, price, rating, add to cart & remove)
