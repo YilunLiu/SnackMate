@@ -143,7 +143,8 @@ public class HomePageActivity extends AppCompatActivity
         TextView navUsernameView = (TextView) findViewById(R.id.nav_username);
         navUsernameView.setText("Hello," + username);
 
-        if (ParseUser.getCurrentUser() != null){
+        if (ParseUser.getCurrentUser() != null ||
+                ParseUser.getCurrentUser().getParseFile("profilePicture") != null){
             ImageLoader imageLoader = new ImageLoader(this);
             imageLoader.displayImage(ParseUser.getCurrentUser().getParseFile("profilePicture").getUrl(),
                     navImageView);
@@ -156,7 +157,7 @@ public class HomePageActivity extends AppCompatActivity
                 Intent intent = null;
                 if (currentUser != null) {
                     intent = new Intent(HomePageActivity.this, UploadImageActivity.class);
-                    startActivityForResult(intent,UPLOAD_ACTIVITY_REQUEST);
+                    startActivityForResult(intent, UPLOAD_ACTIVITY_REQUEST);
                 } else {
                     intent = new Intent(HomePageActivity.this, ParseLoginActivity.class);
                     startActivity(intent);
