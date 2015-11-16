@@ -1,1 +1,3 @@
-include ':app'
+include ':ParseUI-Login', ':ParseUI-Widget', ':app'
+project(':ParseUI-Login').projectDir = new File('ParseUI-Android-master/ParseUI-Login')
+project(':ParseUI-Widget').projectDir = new File('ParseUI-Android-master/ParseUI-Widget')
