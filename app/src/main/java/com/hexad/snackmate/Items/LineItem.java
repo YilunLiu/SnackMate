@@ -57,21 +57,21 @@ public class LineItem extends ParseObject {
         saveInBackground();
     }
 
-    public int getCount(){ return getNumber(countKey).intValue();}
-    public String getTitle(){
-        return getString(titleKey);
+    public int getCount() throws Exception{ return fetchIfNeeded().getNumber(countKey).intValue();}
+    public String getTitle() throws Exception{
+        return  fetchIfNeeded().getString(titleKey);
     }
 
-    public String getImageURL(){
-        return getString(imageURLKey);
+    public String getImageURL() throws Exception{
+        return  fetchIfNeeded().getString(imageURLKey);
     }
 
-    public Double getPrice(){
-        return getNumber(priceKey).doubleValue();
+    public Double getPrice() throws Exception{
+        return  fetchIfNeeded().getNumber(priceKey).doubleValue();
     }
 
-    public Double getAverageRating(){
-        return getNumber(avgRatingKey).doubleValue();
+    public Double getAverageRating() throws Exception{
+        return  fetchIfNeeded().getNumber(avgRatingKey).doubleValue();
     }
 
     static public ParseQuery<LineItem> getQuery(){

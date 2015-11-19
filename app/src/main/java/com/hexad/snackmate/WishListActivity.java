@@ -27,16 +27,17 @@ public class WishListActivity extends AppCompatActivity {
             super.onCreate(SavedInstanceState);
             setContentView(R.layout.wishlist);
             setTitle("Wishlist");
-            itemList = ParseUser.getCurrentUser().getList("wishList");
-
+            try {
+                itemList = ParseUser.getCurrentUser().fetchIfNeeded().getList("wishList");
+            }catch (Exception e){}
             WishListItemAdapter adapter = new WishListItemAdapter(WishListActivity.this, R.layout.wishlist_item, itemList);
             list = (ListView) findViewById(R.id.wish_list);
             list.setAdapter(adapter);
             list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intent = new Intent(WishListActivity.this,ItemDetailActivity.class);
-                    intent.putExtra("itemid",position);
+                    Intent intent = new Intent(WishListActivity.this, ItemDetailActivity.class);
+                    intent.putExtra("itemid", position);
                     startActivity(intent);
                 }
             });

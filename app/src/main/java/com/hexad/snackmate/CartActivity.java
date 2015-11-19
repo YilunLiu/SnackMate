@@ -3,6 +3,7 @@ package com.hexad.snackmate;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -23,8 +24,10 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(SavedInstanceState);
         setContentView(R.layout.activity_cart);
         setTitle("Cart");
-        itemList = ParseUser.getCurrentUser().getList("cart");
-
+        try {
+            itemList = ParseUser.getCurrentUser().fetchIfNeeded().getList("cart");
+        }catch (Exception e){}
+        Log.d("cart size", Integer.toString(itemList.size()));
         CartItemAdapter adapter = new CartItemAdapter(CartActivity.this, R.layout.cart_item, itemList);
         list = (ListView) findViewById(R.id.cart);
         list.setAdapter(adapter);

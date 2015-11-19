@@ -143,7 +143,7 @@ public class HomePageActivity extends AppCompatActivity
         TextView navUsernameView = (TextView) findViewById(R.id.nav_username);
         navUsernameView.setText("Hello," + username);
 
-        if (ParseUser.getCurrentUser() != null ||
+        if (ParseUser.getCurrentUser() != null &&
                 ParseUser.getCurrentUser().getParseFile("profilePicture") != null){
             ImageLoader imageLoader = new ImageLoader(this);
             imageLoader.displayImage(ParseUser.getCurrentUser().getParseFile("profilePicture").getUrl(),

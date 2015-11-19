@@ -15,6 +15,7 @@
         android:layout_marginBottom="125dp"
         >
         <at.markushi.ui.CircleButton
+            android:id="@+id/wish_list_button"
             android:layout_width="64dip"
             android:layout_height="64dip"
             android:src="@drawable/ic_action_heart"
@@ -22,6 +23,7 @@
             app:cb_color="#FFB3FF"
             app:cb_pressedRingWidth="8dip" />
         <at.markushi.ui.CircleButton
+            android:id="@+id/trash_button"
             android:layout_width="64dip"
             android:layout_height="64dip"
             android:src="@drawable/ic_action_trash"
