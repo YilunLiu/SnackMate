@@ -34,6 +34,7 @@ import com.hexad.snackmate.Items.SnackItem;
 import com.hexad.snackmate.Utils.ImageLoader;
 import com.hexad.snackmate.Utils.ImageResizer;
 import com.hexad.snackmate.Utils.Utils;
+import com.parse.ParseAnonymousUtils;
 import com.parse.ParseUser;
 import com.parse.ui.ParseLoginActivity;
 
@@ -47,8 +48,8 @@ public class HomePageActivity extends AppCompatActivity
 
     private static final int LOGIN_REQUEST = 0;
     private Spinner filter,sort;
-    private ParseUser currentUser;
-
+    private ParseUser currentUser = Global.currentUser;
+    private boolean isUserAnonymous = false;
     private static final int UPLOAD_ACTIVITY_REQUEST = 1;
 
 
@@ -58,16 +59,19 @@ public class HomePageActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
+        isUserAnonymous = (currentUser==null|| ParseAnonymousUtils.isLinked(currentUser));
 
-        ParseUser user = ParseUser.getCurrentUser();
-        if (user.getList("wishList") == null){
-            user.put("wishList", new ArrayList<SnackItem>());
-            user.saveInBackground();
+        if(!isUserAnonymous) {
+            if (currentUser.getList("wishList") == null) {
+                currentUser.put("wishList", new ArrayList<SnackItem>());
+                currentUser.saveInBackground();
+            }
+            if (currentUser.getList("cart") == null) {
+                currentUser.put("cart", new ArrayList<LineItem>());
+                currentUser.saveInBackground();
+            }
         }
-        if (user.getList("cart") == null){
-            user.put("cart", new ArrayList<LineItem>());
-            user.saveInBackground();
-        }
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -136,15 +140,16 @@ public class HomePageActivity extends AppCompatActivity
         MenuItem searchItem = menu.findItem(R.id.action_search);
         //SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
 
-        currentUser = ParseUser.getCurrentUser();
-        String username = currentUser != null ? currentUser.getString("name") : "Guest";
+
+        String username = isUserAnonymous ? "Guest": currentUser.getString("name");
 
         ImageView navImageView = (ImageView) findViewById(R.id.nav_profile_image);
         TextView navUsernameView = (TextView) findViewById(R.id.nav_username);
         navUsernameView.setText("Hello," + username);
 
-        if (ParseUser.getCurrentUser() != null &&
-                ParseUser.getCurrentUser().getParseFile("profilePicture") != null){
+
+        if (currentUser != null && !isUserAnonymous &&
+                currentUser.getParseFile("profilePicture") != null){
             ImageLoader imageLoader = new ImageLoader(this);
             imageLoader.displayImage(ParseUser.getCurrentUser().getParseFile("profilePicture").getUrl(),
                     navImageView);
@@ -155,6 +160,7 @@ public class HomePageActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent intent = null;
+//                if (currentUser != null && !isUserAnonymous) {
                 if (currentUser != null) {
                     intent = new Intent(HomePageActivity.this, UploadImageActivity.class);
                     startActivityForResult(intent, UPLOAD_ACTIVITY_REQUEST);
@@ -203,7 +209,13 @@ public class HomePageActivity extends AppCompatActivity
         } else if (id == R.id.nav_setting) {
 
         } else if (id == R.id.nav_logout) {
-
+            Intent intent = new Intent(HomePageActivity.this,ProfileActivity.class);
+            if (currentUser != null) {
+                // User clicked to log out.
+                ParseUser.logOut();
+                currentUser = null;
+            }
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

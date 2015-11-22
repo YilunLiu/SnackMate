@@ -42,20 +42,12 @@ public class CartItemAdapter extends ArrayAdapter<LineItem>{
 
         img.setImageResource(Global.images[position]);
         try {
-            txt.setText(String.format("%s*%d", item.getTitle(), item.getCount()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
+            txt.setText(item.getTitle() + "*" + item.getCount());
             bar.setRating(item.getAverageRating().floatValue());
-        } catch (Exception e) {
-            e.printStackTrace();
+            img.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imageLoader.displayImage(item.getImageURL(), img);
         }
-        img.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        try {
-            imageLoader.displayImage(item.getImageURL(),img);
-        } catch (Exception e) {
-            e.printStackTrace();
+        catch(Exception e){
         }
         return view;
 
