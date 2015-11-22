@@ -41,10 +41,22 @@ public class CartItemAdapter extends ArrayAdapter<LineItem>{
         RatingBar bar = (RatingBar)view.findViewById(R.id.cart_item_rating_bar);
 
         img.setImageResource(Global.images[position]);
-        txt.setText(item.getTitle()+"*"+item.getCount());
-        bar.setRating(item.getAverageRating().floatValue());
+        try {
+            txt.setText(String.format("%s*%d", item.getTitle(), item.getCount()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            bar.setRating(item.getAverageRating().floatValue());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         img.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageLoader.displayImage(item.getImageURL(),img);
+        try {
+            imageLoader.displayImage(item.getImageURL(),img);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return view;
 
 
