@@ -27,11 +27,18 @@ public class CartActivity extends AppCompatActivity {
         try {
             itemList = ParseUser.getCurrentUser().fetchIfNeeded().getList("cart");
         }catch (Exception e){}
-        Log.d("cart size", Integer.toString(itemList.size()));
-        CartItemAdapter adapter = new CartItemAdapter(CartActivity.this, R.layout.cart_item, itemList);
-        list = (ListView) findViewById(R.id.cart);
-        list.setAdapter(adapter);
 
+        list = (ListView) findViewById(R.id.cart);
+        if (itemList == null)
+        list.setEmptyView(findViewById(R.id.cart_empty));
+
+        else {
+            findViewById(R.id.cart_empty).setVisibility(View.GONE);
+            Log.d("cart size", Integer.toString(itemList.size()));
+            CartItemAdapter adapter = new CartItemAdapter(CartActivity.this, R.layout.cart_item, itemList);
+
+            list.setAdapter(adapter);
+        }
 
 
     }

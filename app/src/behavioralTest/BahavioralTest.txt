@@ -13,7 +13,7 @@ Then a detailed item page shows up
 
 -----
 
-2. Normal browing exit
+2. Normal browsing exit
 Given the user is on item detail page
 When the user taps back button
 Then homepage shows up

@@ -24,8 +24,10 @@
     <string name="profile_title_logged_in">Your are logged in as</string>
     <string name="profile_logout_button_label">Log out</string>
     <string name="profile_title_logged_out">You must be logged in to view your profile</string>
+    <string name="profile_title_guest_login">Continue as a Guest</string>
     <string name="profile_login_button_label">Log in</string>
     <string name="profile_homepage_label">Go to Home Page</string>
+    <string name="profile_guest_login_button_label">Login as a Guest</string>
 
     <!-- STRING CONSTANTS FOR WISHLIST-->
     <string name="wishlist_remove">Remove from WishList</string>

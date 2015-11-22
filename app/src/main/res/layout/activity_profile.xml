@@ -23,10 +23,17 @@
         android:gravity="center"
         android:orientation="vertical">
 
+        <ImageView
+            android:id="@+id/profile_profile_pic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
         <TextView
             android:id="@+id/profile_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
             style="@style/ParseLoginUI.TextView"
             android:text="@string/profile_title_logged_in" />
 
@@ -52,7 +59,19 @@
             android:id="@+id/login_or_logout_button"
             style="@style/ParseLoginUI.Button"
             android:layout_marginTop="@dimen/com_parse_ui_large_vertical_spacing"
+            android:layout_marginBottom="@dimen/com_parse_ui_large_vertical_spacing"
             android:text="@string/profile_logout_button_label"/>
 
+        <TextView
+            android:id="@+id/profile_guest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/ParseLoginUI.TextView"/>
+
+        <Button
+            android:id="@+id/guest_login_button"
+            style="@style/ParseLoginUI.Button"
+            android:layout_marginTop="24dp"
+            android:text="@string/profile_guest_login_button_label"/>
     </LinearLayout>
 </LinearLayout>

@@ -89,9 +89,9 @@ public class UploadImageActivity extends Activity {
                     ParseUser.getCurrentUser().put("profilePicture", imageFile);
                     ParseUser.getCurrentUser().saveInBackground();
 
-                    Intent resultInent = new Intent();
-                    resultInent.putExtra("picturePath",picturePath);
-                    setResult(RESULT_OK, resultInent);
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("picturePath",picturePath);
+                    setResult(RESULT_OK, resultIntent);
                     finish();
 
 

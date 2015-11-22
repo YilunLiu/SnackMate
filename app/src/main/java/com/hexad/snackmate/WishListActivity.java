@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.hexad.snackmate.Items.SnackItem;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,18 +31,26 @@ public class WishListActivity extends AppCompatActivity {
             try {
                 itemList = ParseUser.getCurrentUser().fetchIfNeeded().getList("wishList");
             }catch (Exception e){}
-            WishListItemAdapter adapter = new WishListItemAdapter(WishListActivity.this, R.layout.wishlist_item, itemList);
             list = (ListView) findViewById(R.id.wish_list);
-            list.setAdapter(adapter);
-            list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intent = new Intent(WishListActivity.this, ItemDetailActivity.class);
-                    intent.putExtra("itemid", position);
-                    startActivity(intent);
-                }
-            });
+            if(itemList == null) {
+//                itemList = new ArrayList<SnackItem>();
+                list.setEmptyView(findViewById(R.id.empty));
+            }
+            else {
+                findViewById(R.id.empty).setVisibility(View.GONE);
+                WishListItemAdapter adapter = new WishListItemAdapter(WishListActivity.this, R.layout.wishlist_item, itemList);
 
+//            list.setEmptyView(findViewById(R.id.empty));
+                list.setAdapter(adapter);
+                list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent = new Intent(WishListActivity.this, ItemDetailActivity.class);
+                        intent.putExtra("itemid", position);
+                        startActivity(intent);
+                    }
+                });
+            }
 
         }
 }
