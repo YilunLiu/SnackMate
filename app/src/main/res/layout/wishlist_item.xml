@@ -29,7 +29,8 @@
             android:id="@+id/wish_list_item_rating_bar"
             android:numStars="5"
             android:stepSize="0.01"
-            android:isIndicator="true"/>
+            android:isIndicator="true"
+            android:paddingTop="10dp"/>
     </LinearLayout>
 
 </LinearLayout>

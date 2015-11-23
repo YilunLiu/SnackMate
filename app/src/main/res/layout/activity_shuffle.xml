@@ -11,24 +11,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:layout_marginBottom="83dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="125dp"
-        >
-        <at.markushi.ui.CircleButton
-            android:id="@+id/wish_list_button"
-            android:layout_width="64dip"
-            android:layout_height="64dip"
-            android:src="@drawable/ic_action_heart"
-            android:layout_marginRight="25dp"
-            app:cb_color="#FFB3FF"
-            app:cb_pressedRingWidth="8dip" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
         <at.markushi.ui.CircleButton
             android:id="@+id/trash_button"
             android:layout_width="64dip"
             android:layout_height="64dip"
             android:src="@drawable/ic_action_trash"
             app:cb_color="#A6A6A6"
-            app:cb_pressedRingWidth="8dip" />
+            app:cb_pressedRingWidth="8dip"
+            android:layout_weight="0.01"
+            android:layout_gravity="right"
+            android:layout_marginLeft="60dp" />
+
+        <at.markushi.ui.CircleButton
+            android:id="@+id/wish_list_button"
+            android:layout_width="64dip"
+            android:layout_height="64dip"
+            android:src="@drawable/ic_action_heart"
+            android:layout_marginRight="60dp"
+            app:cb_color="#FFB3FF"
+            app:cb_pressedRingWidth="8dip"
+            android:layout_weight="0.01"
+            android:layout_gravity="left" />
     </LinearLayout>
 
         <!--<com.andtinder.view.CardContainer-->
