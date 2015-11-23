@@ -40,7 +40,6 @@ public class CartItemAdapter extends ArrayAdapter<LineItem>{
         TextView txt = (TextView)view.findViewById(R.id.cart_item_txt);
         RatingBar bar = (RatingBar)view.findViewById(R.id.cart_item_rating_bar);
 
-        img.setImageResource(Global.images[position]);
         try {
             txt.setText(item.getTitle() + "*" + item.getCount());
             bar.setRating(item.getAverageRating().floatValue());

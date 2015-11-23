@@ -39,7 +39,6 @@ public class WishListItemAdapter extends ArrayAdapter<SnackItem> {
         TextView txt = (TextView)view.findViewById(R.id.wish_list_item_txt);
         RatingBar bar = (RatingBar)view.findViewById(R.id.wish_list_item_rating_bar);
 
-        img.setImageResource(Global.images[position]);
         txt.setText(item.getTitle());
         bar.setRating(item.getAverageRating().floatValue());
         img.setScaleType(ImageView.ScaleType.CENTER_CROP);

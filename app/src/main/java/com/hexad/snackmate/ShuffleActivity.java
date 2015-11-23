@@ -42,7 +42,6 @@ public class ShuffleActivity extends Activity {
     int screenCenter;
     int x_cord, y_cord, x, y;
     int Likes = 0;
-    Integer[] myImageList = Global.images;
     private Context m_context;
     RelativeLayout parentView;
     @SuppressWarnings("deprecation")

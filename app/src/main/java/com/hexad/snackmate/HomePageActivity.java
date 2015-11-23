@@ -1,5 +1,8 @@
 package com.hexad.snackmate;
 
+import android.app.SearchManager;
+import android.app.SearchableInfo;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,16 +24,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.support.v7.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hexad.snackmate.Activities.UploadImageActivity;
 import com.hexad.snackmate.Items.LineItem;
 import com.hexad.snackmate.Items.SnackItem;
+import com.hexad.snackmate.Items.SnackItemService;
 import com.hexad.snackmate.Utils.ImageLoader;
 import com.hexad.snackmate.Utils.ImageResizer;
 import com.hexad.snackmate.Utils.Utils;
@@ -44,7 +51,8 @@ import java.util.List;
 import java.util.Set;
 
 public class HomePageActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener,
+                    SearchView.OnCloseListener {
 
     private static final int LOGIN_REQUEST = 0;
     private Spinner filter,sort;
@@ -53,6 +61,8 @@ public class HomePageActivity extends AppCompatActivity
     private static final int UPLOAD_ACTIVITY_REQUEST = 1;
 
 
+    private SearchView searchView;
+    private ImageAdapter imageAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -85,8 +95,10 @@ public class HomePageActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         // Set up gridview on the homepage
+
+        imageAdapter = new ImageAdapter(this,Global.list);
         GridView gridView = (GridView) findViewById(R.id.homepage_gridview);
-        gridView.setAdapter(new ImageAdapter(this));
+        gridView.setAdapter(imageAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -137,7 +149,8 @@ public class HomePageActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home_page, menu);
-        MenuItem searchItem = menu.findItem(R.id.action_search);
+        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        setupSearchView();
         //SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
 
 
@@ -247,4 +260,40 @@ public class HomePageActivity extends AppCompatActivity
     }
 
 
+    private void setupSearchView()
+    {
+
+        searchView.setIconifiedByDefault(true);
+
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+
+        searchView.setOnQueryTextListener(this);
+        searchView.setOnCloseListener(this);
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+
+        Log.d("Searchable", "Query: "+query);
+        List<SnackItem> list = new ArrayList<SnackItem>();
+        for (SnackItem snackItem : Global.list){
+            if (snackItem.getTitle().contains(query)){
+                list.add(snackItem);
+            }
+        }
+        imageAdapter.setList(list);
+        imageAdapter.notifyDataSetChanged();
+
+        return false;
+    }
+
+    @Override
+    public boolean onClose() {
+        return false;
+    }
 }

@@ -28,15 +28,18 @@ public class ImageAdapter extends BaseAdapter {
     private List<SnackItem> list;
 
     private Context context;
-    private Integer[] images = Global.images;
     private ImageLoader imageLoader;
     private static LayoutInflater inflater=null;
 
-    public ImageAdapter(Context c){
+    public ImageAdapter(Context c, List<SnackItem> list){
         context = c;
         imageLoader = new ImageLoader(c);
         inflater = ( LayoutInflater )context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        list = Global.list;
+        this.list = list;
+    }
+
+    public void setList(List<SnackItem> list) {
+        this.list = list;
     }
 
     @Override
