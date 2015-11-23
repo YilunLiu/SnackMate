@@ -26,16 +26,15 @@ public class SpinnerActivity extends Activity implements AdapterView.OnItemSelec
         Activity activity = (Activity)c;
         GridView gridView = (GridView) activity.findViewById(R.id.homepage_gridview);
         ImageAdapter adapter = (ImageAdapter) gridView.getAdapter();
-        Toast.makeText(c,
-                "OnItemSelectedListener : " + selected,
-                Toast.LENGTH_SHORT).show();
+//        Toast.makeText(c,
+//                "OnItemSelectedListener : " + selected,
+//                Toast.LENGTH_SHORT).show();
         SortType sortType = SortType.Default;
 
         switch(selected) {
-            case "Filter":
+
             case "Sort":
-            case "Origin":
-            case "Taste":
+                return;
             case "Price high to low":
                 sortType = SortType.Price_high_to_low;
                 break;

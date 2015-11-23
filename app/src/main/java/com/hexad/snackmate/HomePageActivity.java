@@ -35,6 +35,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hexad.snackmate.Activities.UploadImageActivity;
+import com.hexad.snackmate.Enumerations.Country;
+import com.hexad.snackmate.Enumerations.Taste;
 import com.hexad.snackmate.Items.LineItem;
 import com.hexad.snackmate.Items.SnackItem;
 import com.hexad.snackmate.Items.SnackItemService;
@@ -59,6 +61,19 @@ public class HomePageActivity extends AppCompatActivity
     private ParseUser currentUser = Global.currentUser;
     private boolean isUserAnonymous = false;
     private static final int UPLOAD_ACTIVITY_REQUEST = 1;
+
+    private boolean clickedMain = false;
+
+    String filters[] =new String []{"Filter","Origins", "Tastes"};
+    String choices[][] = new String[][] {new String[] {"", "", ""},
+            new String[] {Country.China.toString(),Country.Japan.toString(),Country.North_Korea.toString(),Country.Others.toString(),Country.All.toString()},
+            new String[] {Taste.Sweet.toString(),Taste.Sour.toString(),Taste.Spicy.toString(),Taste.Salty.toString(),Taste.Others.toString(),Taste.All.toString()}
+    };
+
+    private MultiLayerMenu subListView;
+    private SubMultiMenuAdapter subAdapter;
+    private ArrayAdapter<String> filter_adapter;
+    private GridView gridView;
 
 
     private SearchView searchView;
@@ -110,11 +125,17 @@ public class HomePageActivity extends AppCompatActivity
             }
         });
         //Set up spinner objects and add listeners for them
+        init();
         addItemsOnSpinners();
         addListenerOnSpinnerItemSelection();
 
 
 
+    }
+
+    private void init(){
+        subListView=(MultiLayerMenu) findViewById(R.id.subListView);
+        subListView.setBackgroundColor(Color.WHITE);
     }
 
     @Override
@@ -238,11 +259,9 @@ public class HomePageActivity extends AppCompatActivity
 
     public void addItemsOnSpinners(){
         filter = (Spinner) findViewById(R.id.spinner1);
-        String[] names = new String[]{"Filter","Origins", "Tastes"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, names);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        filter.setAdapter(adapter);
-
+        filter_adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, filters);
+        filter_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        filter.setAdapter(filter_adapter);
 
         sort = (Spinner) findViewById(R.id.spinner2);
         String[] names1 = new String[]{"Sort", "Price high to low", "Price low to high", "Ratings", "Alphabetical Order"};
@@ -254,10 +273,107 @@ public class HomePageActivity extends AppCompatActivity
 
     public void addListenerOnSpinnerItemSelection() {
 
-        filter.setOnItemSelectedListener(new SpinnerActivity());
+        filter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View arg1, int position,
+                                       long arg3) {
+                Toast.makeText(getApplicationContext(),"clicked",Toast.LENGTH_LONG).show();
+                // TODO Auto-generated method stub
+                subAdapter = new SubMultiMenuAdapter(getApplicationContext(), choices, position);
+
+//                if(clickedMain) {
+                    final int location = position;
+                    final String filter_type = parent.getItemAtPosition(position).toString();
+                    if (filter_type != "Filter"){
+                    subListView.setVisibility(View.VISIBLE);
+                    subListView.setAdapter(subAdapter);
+
+                    subListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> arg0, View arg1,
+                                                int arg2, long arg3) {
+
+                            subListView.setVisibility(View.GONE);
+                            clickedMain = false;
+                            String selected = choices[location][arg2];
+                            if (filter_type == "Filter") {
+
+                                return;
+                            }
+                            else if (filter_type == "Origins") {
+                                Country country = Country.All;
+                                switch (selected) {
+                                    case "China":
+                                        country = Country.China;
+                                        break;
+                                    case "Japan":
+                                        country = Country.Japan;
+                                        break;
+                                    case "Others":
+                                        country = Country.Others;
+                                        break;
+                                    case "North Korea":
+                                        country = Country.North_Korea;
+                                        break;
+                                    case "All":
+                                        imageAdapter.setList(Global.list);
+                                        return;
+                                }
+                                imageAdapter.filterByCountry(country);
+                            } else {
+                                Taste taste = Taste.All;
+                                switch (selected) {
+                                    case "Sweet":
+                                        taste = Taste.Sweet;
+                                        break;
+                                    case "Sour":
+                                        taste = Taste.Sour;
+                                        break;
+                                    case "Salty":
+                                        taste = Taste.Salty;
+                                        break;
+                                    case "Spicy":
+                                        taste = Taste.Spicy;
+                                        break;
+                                    case "Others":
+                                        taste = Taste.Others;
+                                        break;
+                                    case "All":
+                                        imageAdapter.setList(Global.list);
+                                        return;
+                                }
+                                imageAdapter.filterByTaste(taste);
+                            }
+                            filter_adapter.notifyDataSetChanged();
+                            subAdapter.notifyDataSetChanged();
+                        }
+                    });
+                    }
+                    else{
+                        subListView.setVisibility(View.GONE);
+                    }
+//                }
+//
+//                else {
+//                    subListView.setVisibility(View.GONE);
+//                    subAdapter.notifyDataSetChanged();
+//                    clickedMain = true;
+//                }
+
+            }
+
+
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+
+            }
+        });
+
         sort.setOnItemSelectedListener(new SpinnerActivity());
 
     }
+
 
 
     private void setupSearchView()

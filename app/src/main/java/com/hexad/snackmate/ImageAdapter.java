@@ -10,8 +10,11 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.hexad.snackmate.Enumerations.Country;
 import com.hexad.snackmate.Enumerations.SortType;
+import com.hexad.snackmate.Enumerations.Taste;
 import com.hexad.snackmate.Items.SnackItem;
+import com.hexad.snackmate.Items.SnackItemService;
 import com.hexad.snackmate.Utils.ImageLoader;
 
 import java.util.Collections;
@@ -30,6 +33,9 @@ public class ImageAdapter extends BaseAdapter {
     private Context context;
     private ImageLoader imageLoader;
     private static LayoutInflater inflater=null;
+    private SortType sortType = SortType.Default;
+    private Country country = Country.All;
+    private Taste taste = Taste.All;
 
     public ImageAdapter(Context c, List<SnackItem> list){
         context = c;
@@ -91,29 +97,64 @@ public class ImageAdapter extends BaseAdapter {
     }
 
     public void SortByType(SortType sortType){
+        if ((country.equals(Country.All) )&& (taste.equals(Taste.All))) {
+            switch (sortType) {
+                case Alphabetical:
+                    AlphabetComparator ac = new AlphabetComparator();
+                    Collections.sort(list, ac);
+                    break;
+                case Price_high_to_low:
+                    PriceComparator pc = new PriceComparator();
+                    Collections.sort(list, pc);
+                    break;
+                case Price_low_to_high:
+                    Collections.sort(list, new PriceComparator());
+                    Collections.reverse(list);
+                    break;
+                case Rating:
+                    RatingComparator rc = new RatingComparator();
+                    Collections.sort(list, rc);
+                    break;
+                default:
+            }
 
-        switch(sortType){
-            case Alphabetical:
-                AlphabetComparator ac =new AlphabetComparator();
-                Collections.sort(list, ac);
-                break;
-            case Price_high_to_low:
-                PriceComparator pc =new PriceComparator();
-                Collections.sort(list, pc);
-                break;
-            case Price_low_to_high:
-                Collections.sort(list,new PriceComparator());
-                Collections.reverse(list);
-                break;
-            case Rating:
-                RatingComparator rc = new RatingComparator();
-                Collections.sort(list, rc);
-                break;
-            default:
+            notifyDataSetChanged();
+        }
+        else if (country != Country.All){
+            filterByCountry(sortType, country);
+        }
+        else{
+            filterByTaste(sortType, taste);
         }
 
-        notifyDataSetChanged();
-
     }
+    public void filterByCountry(Country country){
+        filterByCountry(sortType,country);
+    }
+
+    public void filterByTaste(Taste taste){
+        filterByTaste(sortType,taste);
+    }
+
+    private void filterByCountry(SortType sortType, Country country){
+        if (country == Country.All)
+            this.country = country;
+        else{
+            list = SnackItemService.getSnackByCountry(country, sortType, 10);
+        }
+        notifyDataSetChanged();
+    }
+
+    private void filterByTaste(SortType sortType, Taste taste){
+        if (taste == taste.All)
+            this.taste = taste;
+        else{
+            list = SnackItemService.getSnackByTaste(taste, sortType, 10);
+        }
+        notifyDataSetChanged();
+    }
+
+
+
 
 }

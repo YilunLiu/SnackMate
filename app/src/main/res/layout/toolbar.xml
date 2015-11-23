@@ -33,6 +33,23 @@
         android:gravity="center"
         android:orientation="horizontal">
 
+        <!--<com.hexad.snackmate.MultiLayerMenu-->
+            <!--android:id="@+id/listView"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:choiceMode="singleChoice"-->
+            <!--android:scrollbars="none"-->
+            <!--android:divider="@drawable/list_divide"-->
+            <!--android:listSelector="#00000000"-->
+
+            <!-->-->
+            <!--&lt;!&ndash;android:background="#e4e3de"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+
+        <!--</com.hexad.snackmate.MultiLayerMenu>-->
+
 
         <Spinner
             android:id="@+id/spinner1"
@@ -41,6 +58,19 @@
             android:layout_weight="1"
 
         />
+
+        <com.hexad.snackmate.MultiLayerMenu
+            android:id="@+id/subListView"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="#e4e3de"
+            android:visibility="gone"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            >
+
+        </com.hexad.snackmate.MultiLayerMenu>
 
         <Spinner
             android:id="@+id/spinner2"
