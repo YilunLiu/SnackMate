@@ -2,7 +2,8 @@
 <ScrollView
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fillViewport="false">
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -13,21 +14,17 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:gravity="center_horizontal"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.hexad.snackmate.ItemDetailActivity">
+    tools:context="com.hexad.snackmate.ItemDetailActivity"
+    android:gravity="center_horizontal">
 
     <ImageView
         android:id="@+id/image_itemdetail_view"
         android:layout_width="wrap_content"
-        android:layout_height="300dp"/>
-    <TextView
-        android:id="@+id/title_itemdetail_view"
-        android:layout_marginTop="12dp"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"/>
+        android:layout_height="250dp"
+        android:paddingBottom="20dp" />
+
     <RatingBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,56 +32,109 @@
         android:id="@+id/rating_bar"
         android:numStars="5"
         android:stepSize="0.01"
-        android:isIndicator="true"/>
-    <LinearLayout
+        android:isIndicator="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignBottom="@+id/item_detail_wish"
+        android:layout_toRightOf="@+id/item_subtract"
+        android:layout_toEndOf="@+id/item_subtract"
+        android:paddingBottom="10dp"
+        android:mirrorForRtl="true" />
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
-        android:orientation="vertical">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <Button
-                android:layout_alignParentLeft="true"
-                android:id="@+id/item_subtract"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:text="-"
-                />
-            <TextView
-                android:id="@+id/item_detail_counter"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="22sp"
-                android:text="1"
-                android:textAlignment="center"/>
-            <Button
-                android:layout_alignParentRight="true"
-                android:id="@+id/item_add"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:text="+"
-                />
-        </RelativeLayout>
-        <Button
-            android:id="@+id/item_detail_cart"
-            android:layout_weight="1"
+        android:layout_height="119dp">
+
+        <TextView
+            android:id="@+id/title_itemdetail_view"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Add To Cart"/>
+            android:layout_height="35dp"
+            android:gravity="center_vertical|center"
+            android:textSize="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
         <Button
             android:id="@+id/item_detail_wish"
-            android:layout_weight="1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Add To Wishlist"/>
-    </LinearLayout>
-    <TextView
+            android:layout_width="150dp"
+            android:layout_height="35dp"
+            android:text="Add To Wishlist"
+            android:background="@color/colorAccent"
+            android:textColor="#ffffff"
+            android:layout_gravity="center_horizontal|right"
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@+id/item_detail_cart"
+            android:layout_alignStart="@+id/item_detail_cart" />
 
+        <Button
+            android:id="@+id/item_detail_cart"
+            android:layout_width="150dp"
+            android:layout_height="35dp"
+            android:text="Add To Cart"
+            android:background="@color/colorAccent"
+            android:textColor="#ffffff"
+            android:layout_gravity="right"
+            android:layout_alignTop="@+id/item_detail_counter"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <Button
+            android:id="@+id/item_add"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:text="+"
+            android:background="@color/colorAccent"
+            android:textColor="#ffffff"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/item_subtract"
+            android:layout_toEndOf="@+id/item_subtract"
+            android:layout_marginLeft="54dp"
+            android:layout_marginStart="54dp" />
+
+        <Button
+            android:id="@+id/item_subtract"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:text="-"
+            android:textColor="#ffffff"
+            android:background="@color/colorAccent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/item_detail_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:textSize="22sp"
+            android:text="1"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignRight="@+id/item_add"
+            android:layout_alignEnd="@+id/item_add"
+            android:layout_alignParentBottom="true" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="This is description. BLABLABLA"/>
+        android:layout_height="match_parent"
+        android:paddingTop="10dp"
+        android:weightSum="1">
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="This is description. BLABLABLA"
+            android:gravity="center_vertical"
+            android:focusable="false"
+            android:layout_weight="7.70"
+            android:textSize="20dp" />
+    </LinearLayout>
 
 
 </LinearLayout>
