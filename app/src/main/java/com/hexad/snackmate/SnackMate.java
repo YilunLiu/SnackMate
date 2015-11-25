@@ -45,6 +45,6 @@ public class SnackMate extends Application {
                 getString(R.string.twitter_consumer_secret));
 
         Global.list = SnackItemService.getAllSnackItemsSync();
-        ParseUser.enableAutomaticUser();
+//        ParseUser.enableAutomaticUser();
     }
 }

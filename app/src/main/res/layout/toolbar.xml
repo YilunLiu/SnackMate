@@ -58,7 +58,6 @@
             android:layout_weight="1"
 
         />
-
         <com.hexad.snackmate.MultiLayerMenu
             android:id="@+id/subListView"
             android:layout_width="0dp"
@@ -71,7 +70,6 @@
             >
 
         </com.hexad.snackmate.MultiLayerMenu>
-
         <Spinner
             android:id="@+id/spinner2"
             android:layout_width="0dp"

@@ -14,19 +14,6 @@
         android:layout_marginBottom="5dp"
         />
 
-    <TextView
-        android:id="@+id/item_cell_textView"
-        android:layout_gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="2dp"
-        android:layout_marginRight="5dp"
-        android:textAlignment="center"
-        android:text="Text"
-        />
     <RatingBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,5 +21,33 @@
         android:id="@+id/rating_bar"
         android:numStars="5"
         android:stepSize="0.01"
-        android:isIndicator="true"/>
+        android:isIndicator="true"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/item_cell_textView"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textSize="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginRight="5dp"
+        android:textAlignment="center"
+        android:text="Text"
+        />
+
+    <TextView
+        android:id="@+id/item_cell_textView_price"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textSize="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginRight="5dp"
+        android:textAlignment="center"
+        android:text="Text"
+        android:layout_gravity="center_horizontal"
+        android:textIsSelectable="false" />
 </LinearLayout>

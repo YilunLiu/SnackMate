@@ -62,8 +62,6 @@ public class HomePageActivity extends AppCompatActivity
     private boolean isUserAnonymous = false;
     private static final int UPLOAD_ACTIVITY_REQUEST = 1;
 
-    private boolean clickedMain = false;
-
     String filters[] =new String []{"Filter","Origins", "Tastes"};
     String choices[][] = new String[][] {new String[] {"", "", ""},
             new String[] {Country.China.toString(),Country.Japan.toString(),Country.North_Korea.toString(),Country.Others.toString(),Country.All.toString()},
@@ -84,8 +82,8 @@ public class HomePageActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-        isUserAnonymous = (currentUser==null|| ParseAnonymousUtils.isLinked(currentUser));
-
+        isUserAnonymous = (currentUser==null|| !ParseAnonymousUtils.isLinked(currentUser));
+        Toast.makeText(HomePageActivity.this, isUserAnonymous+"", Toast.LENGTH_SHORT).show();
         if(!isUserAnonymous) {
             if (currentUser.getList("wishList") == null) {
                 currentUser.put("wishList", new ArrayList<SnackItem>());
@@ -278,7 +276,6 @@ public class HomePageActivity extends AppCompatActivity
             @Override
             public void onItemSelected(AdapterView<?> parent, View arg1, int position,
                                        long arg3) {
-                Toast.makeText(getApplicationContext(),"clicked",Toast.LENGTH_LONG).show();
                 // TODO Auto-generated method stub
                 subAdapter = new SubMultiMenuAdapter(getApplicationContext(), choices, position);
 
@@ -295,7 +292,6 @@ public class HomePageActivity extends AppCompatActivity
                                                 int arg2, long arg3) {
 
                             subListView.setVisibility(View.GONE);
-                            clickedMain = false;
                             String selected = choices[location][arg2];
                             if (filter_type == "Filter") {
 

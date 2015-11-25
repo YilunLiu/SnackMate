@@ -79,11 +79,13 @@ public class ImageAdapter extends BaseAdapter {
 
         final TextView textView = (TextView) cell.findViewById(R.id.item_cell_textView);
         final ImageView imageView = (ImageView) cell.findViewById(R.id.item_cell_imageView);
+        final TextView priceView = (TextView) cell.findViewById(R.id.item_cell_textView_price);
         SnackItem item = list.get(position);
         // set text
-        String message = item.getTitle() + " $"
-                + item.getPrice().toString();
+        String message = item.getTitle();
         textView.setText(message);
+        String price = "$ " + item.getPrice().toString();
+        priceView.setText(price);
         RatingBar ratingbar = (RatingBar)cell.findViewById(R.id.rating_bar);
         ratingbar.setRating(item.getAverageRating().floatValue());
 

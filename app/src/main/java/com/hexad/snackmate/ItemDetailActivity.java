@@ -52,6 +52,10 @@ public class ItemDetailActivity extends AppCompatActivity {
                 + item.getPrice().toString();
         textView.setText(message);
 
+        TextView descriptionView = (TextView)findViewById(R.id.description_itemdetail_view);
+        String description = item.getDescription();
+        descriptionView.setText(description);
+
         int pictureWidth = (int) (this.getResources().getDisplayMetrics().widthPixels * 0.8);
         ImageView imageView = (ImageView) findViewById(R.id.image_itemdetail_view);
         imageLoader.displayImage(item.getImageURL(), imageView);
