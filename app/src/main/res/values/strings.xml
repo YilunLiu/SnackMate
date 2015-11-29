@@ -31,5 +31,7 @@
 
     <!-- STRING CONSTANTS FOR WISHLIST-->
     <string name="wishlist_remove">Remove from WishList</string>
-
+    <string name="select_filter">Filter</string>
+    <string name="select_sort">Sort</string>
+    <string name="edit_by_tab">点击图片\n可编辑它</string>
 </resources>
