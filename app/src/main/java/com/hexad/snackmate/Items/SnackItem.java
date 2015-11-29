@@ -30,6 +30,7 @@ import com.parse.ParseQuery;
 public class SnackItem extends ParseObject {
 
     /* declear key for values in Parse Object */
+    public static String indexKey = "index";
     public static String titleKey = "title";
     public static String descriptionKey = "description";
     public static String imageKey = "image";
@@ -44,6 +45,8 @@ public class SnackItem extends ParseObject {
 
     }
     /* getter method */
+
+    public int getIndex() {return getInt(indexKey); }
 
     public String getTitle(){
         return getString(titleKey);

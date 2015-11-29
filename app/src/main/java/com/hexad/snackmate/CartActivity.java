@@ -35,9 +35,36 @@ public class CartActivity extends AppCompatActivity {
         else {
             findViewById(R.id.cart_empty).setVisibility(View.GONE);
             Log.d("cart size", Integer.toString(itemList.size()));
-            CartItemAdapter adapter = new CartItemAdapter(CartActivity.this, R.layout.cart_item, itemList);
+            final CartItemAdapter adapter = new CartItemAdapter(CartActivity.this, R.layout.cart_item, itemList);
 
             list.setAdapter(adapter);
+            SwipeDismissListViewTouchListener touchListener =
+                    new SwipeDismissListViewTouchListener(
+                            list,
+                            new SwipeDismissListViewTouchListener.DismissCallbacks() {
+                                @Override
+                                public boolean canDismiss(int position) {
+                                    return true;
+                                }
+
+                                @Override
+                                public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+                                    for (int position : reverseSortedPositions) {
+
+                                        adapter.remove(adapter.getItem(position));
+
+                                    }
+                                    adapter.notifyDataSetChanged();
+
+                                    ParseUser.getCurrentUser().put("cart", itemList);
+                                    ParseUser.getCurrentUser().saveInBackground();
+                                }
+                            });
+            list.setOnTouchListener(touchListener);
+            // Setting this scroll listener is required to ensure that during ListView scrolling,
+            // we don't look for swipes.
+            list.setOnScrollListener(touchListener.makeScrollListener());
+
         }
 
 

@@ -38,15 +38,39 @@ public class WishListActivity extends AppCompatActivity {
             }
             else {
                 findViewById(R.id.empty).setVisibility(View.GONE);
-                WishListItemAdapter adapter = new WishListItemAdapter(WishListActivity.this, R.layout.wishlist_item, itemList);
+                final WishListItemAdapter adapter = new WishListItemAdapter(WishListActivity.this, R.layout.wishlist_item, itemList);
 
-//            list.setEmptyView(findViewById(R.id.empty));
+//              list.setEmptyView(findViewById(R.id.empty));
                 list.setAdapter(adapter);
+                SwipeDismissListViewTouchListener touchListener =
+                        new SwipeDismissListViewTouchListener(
+                                list,
+                                new SwipeDismissListViewTouchListener.DismissCallbacks() {
+                                    @Override
+                                    public boolean canDismiss(int position) {
+                                        return true;
+                                    }
+
+                                    @Override
+                                    public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+                                        for (int position : reverseSortedPositions) {
+                                            adapter.remove(adapter.getItem(position));
+                                        }
+                                        adapter.notifyDataSetChanged();
+                                        ParseUser.getCurrentUser().put("wishList", itemList);
+                                        ParseUser.getCurrentUser().saveInBackground();
+                                    }
+                                });
+                list.setOnTouchListener(touchListener);
+                // Setting this scroll listener is required to ensure that during ListView scrolling,
+                // we don't look for swipes.
+                list.setOnScrollListener(touchListener.makeScrollListener());
+
                 list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent = new Intent(WishListActivity.this, ItemDetailActivity.class);
-                        intent.putExtra("itemid", position);
+                        intent.putExtra("itemid", itemList.get(position).getIndex());
                         startActivity(intent);
                     }
                 });
