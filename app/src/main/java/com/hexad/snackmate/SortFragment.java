@@ -1,6 +1,8 @@
 package com.hexad.snackmate;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +10,12 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import com.hexad.snackmate.Enumerations.SortType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,6 +90,7 @@ public class SortFragment extends Fragment implements View.OnClickListener{
         menuLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                final String sortType = adapterView.getItemAtPosition(i).toString();
                 menuAdapter.checked(i);
                 subjectAdapter.setData(allocateSubject(i));
                 subjectAdapter.notifyDataSetChanged();
@@ -94,6 +101,55 @@ public class SortFragment extends Fragment implements View.OnClickListener{
         subjectAdapter.checked(-1);
         subjectAdapter.setData(allocateSubject(0));
         subjectLv.setAdapter(subjectAdapter);
+
+        subjectLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selected = parent.getItemAtPosition(position).toString();
+                int pos = ((DataAdapter) menuLv.getAdapter()).getPosition();
+
+                SortType sortType = SortType.Default;
+                if(pos == 0){
+                    switch(selected) {
+                        case "Low to High":
+                            sortType = SortType.Price_low_to_high;
+                            break;
+                        case "High to Low":
+                            sortType = SortType.Price_high_to_low;
+                            break;
+                        default:
+                    }
+                }
+                else if(pos == 1){
+                    switch(selected) {
+                        case "Low to High":
+                            sortType = SortType.Rating_low_to_high;
+                            break;
+                        case "High to Low":
+                            sortType = SortType.Rating_high_to_low;
+                            break;
+                        default:
+                    }
+                }
+                else if(pos == 2) {
+                    switch(selected) {
+                        case "A to Z":
+                            sortType = SortType.Alphabetical_a_to_z;
+                            break;
+                        case "Z to A":
+                            sortType = SortType.Alphabetical_z_to_a;
+                            break;
+                        default:
+                    }
+                }
+
+                Activity activity = getActivity();
+                GridView gridView = (GridView) activity.findViewById(R.id.homepage_gridview);
+                ImageAdapter adapter = (ImageAdapter) gridView.getAdapter();
+                adapter.SortByType(sortType);
+
+            }
+        });
     }
 
     @Deprecated
@@ -132,13 +188,6 @@ public class SortFragment extends Fragment implements View.OnClickListener{
             exitAnim();
         }
 
-//        switch (view.getId()){
-//            case R.id.ll_title_sp:
-//            case R.id.v_lamp:
-//                exitAnim();
-//                break;
-//
-//        }
     }
 
     @Override

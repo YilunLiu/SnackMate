@@ -101,9 +101,13 @@ public class ImageAdapter extends BaseAdapter {
     public void SortByType(SortType sortType){
         if ((country.equals(Country.All) )&& (taste.equals(Taste.All))) {
             switch (sortType) {
-                case Alphabetical:
+                case Alphabetical_a_to_z:
                     AlphabetComparator ac = new AlphabetComparator();
                     Collections.sort(list, ac);
+                    break;
+                case Alphabetical_z_to_a:
+                    Collections.sort(list,  new AlphabetComparator());
+                    Collections.reverse(list);
                     break;
                 case Price_high_to_low:
                     PriceComparator pc = new PriceComparator();
@@ -113,9 +117,13 @@ public class ImageAdapter extends BaseAdapter {
                     Collections.sort(list, new PriceComparator());
                     Collections.reverse(list);
                     break;
-                case Rating:
+                case Rating_high_to_low:
                     RatingComparator rc = new RatingComparator();
                     Collections.sort(list, rc);
+                    break;
+                case Rating_low_to_high:
+                    Collections.sort(list, new RatingComparator());
+                    Collections.reverse(list);
                     break;
                 default:
             }

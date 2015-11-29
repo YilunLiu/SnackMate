@@ -11,7 +11,7 @@ import java.util.Map;
     int value is the country code
  */
 public enum Country{
-    China(86), Japan(81), North_Korea(850), Others(0), All(-1);
+    China(86), Japan(81), North_Korea(850), Others(0), All(-1), ;
 
     public int country_code;
 

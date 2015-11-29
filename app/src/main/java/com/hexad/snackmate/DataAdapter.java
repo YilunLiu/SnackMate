@@ -37,6 +37,8 @@ public class DataAdapter extends BaseAdapter{
         return mList.size();
     }
 
+    public int getPosition(){ return markPosition; }
+
     @Override
     public Object getItem(int i) {
         return mList.get(i);

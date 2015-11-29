@@ -1,5 +1,6 @@
 package com.hexad.snackmate;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,10 +9,15 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.hexad.snackmate.Enumerations.Country;
+import com.hexad.snackmate.Enumerations.SortType;
+import com.hexad.snackmate.Enumerations.Taste;
 
 import org.w3c.dom.Text;
 
@@ -99,6 +105,65 @@ public class SelectFragment extends Fragment implements View.OnClickListener{
         subjectAdapter.checked(-1);
         subjectAdapter.setData(allocateSubject(0));
         subjectLv.setAdapter(subjectAdapter);
+
+        subjectLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selected = parent.getItemAtPosition(position).toString();
+                int pos = ((DataAdapter) menuLv.getAdapter()).getPosition();
+                Activity activity = getActivity();
+                GridView gridView = (GridView) activity.findViewById(R.id.homepage_gridview);
+                ImageAdapter adapter = (ImageAdapter) gridView.getAdapter();
+
+                if (pos == 0) {
+                    Country country = Country.All;
+                    switch (selected) {
+                        case "China":
+                            country = Country.China;
+                            break;
+                        case "Japan":
+                            country = Country.Japan;
+                            break;
+                        case "Others":
+                            country = Country.Others;
+                            break;
+                        case "North Korea":
+                            country = Country.North_Korea;
+                            break;
+                        case "All":
+                            adapter.setList(Global.list);
+                            adapter.notifyDataSetChanged();
+                            return;
+                    }
+
+                    adapter.filterByCountry(country);
+                } else if (pos == 1) {
+                    Taste taste = Taste.All;
+                    switch (selected) {
+                        case "Sweet":
+                            taste = Taste.Sweet;
+                            break;
+                        case "Sour":
+                            taste = Taste.Sour;
+                            break;
+                        case "Salty":
+                            taste = Taste.Salty;
+                            break;
+                        case "Spicy":
+                            taste = Taste.Spicy;
+                            break;
+                        case "Others":
+                            taste = Taste.Others;
+                            break;
+                        case "All":
+                            adapter.setList(Global.list);
+                            adapter.notifyDataSetChanged();
+                            return;
+                    }
+                    adapter.filterByTaste(taste);
+                }
+            }
+        });
     }
 
     @Deprecated

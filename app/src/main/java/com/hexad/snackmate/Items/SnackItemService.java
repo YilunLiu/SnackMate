@@ -85,9 +85,13 @@ public class SnackItemService {
                 query.orderByDescending(SnackItem.priceKey);
             case Price_low_to_high:
                 query.orderByAscending(SnackItem.priceKey);
-            case Rating:
+            case Rating_high_to_low:
                 query.orderByDescending(SnackItem.avgRatingKey);
-            case Alphabetical:
+            case Rating_low_to_high:
+                query.orderByDescending(SnackItem.avgRatingKey);
+            case Alphabetical_a_to_z:
+                query.orderByAscending(SnackItem.titleKey);
+            case Alphabetical_z_to_a:
                 query.orderByAscending(SnackItem.titleKey);
             default:
                 query.orderByAscending(SnackItem.titleKey);

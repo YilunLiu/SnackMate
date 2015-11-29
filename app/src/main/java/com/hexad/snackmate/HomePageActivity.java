@@ -167,7 +167,7 @@ public class HomePageActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (fg != null && ((SelectFragment) fg).onBackPressed()) {
             return;
-        } else if (fg2 != null && ((SelectFragment) fg2).onBackPressed()) {
+        } else if (fg2 != null && ((SortFragment) fg2).onBackPressed()) {
             return;
         } else {
             if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -298,11 +298,6 @@ public class HomePageActivity extends AppCompatActivity
             }
         });
 
-//        sort = (Spinner) findViewById(R.id.spinner2);
-//
-//        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, names1);
-//        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        sort.setAdapter(adapter1);
 
     }
 
@@ -396,8 +391,6 @@ public class HomePageActivity extends AppCompatActivity
 //
 //            }
 //        });
-
-//        sort.setOnItemSelectedListener(new SpinnerActivity());
 
     }
 
