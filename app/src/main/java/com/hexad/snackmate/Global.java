@@ -12,6 +12,4 @@ import java.util.List;
  */
 public class Global {
     public static List<SnackItem> list;
-    public static ParseUser currentUser;
-
 }

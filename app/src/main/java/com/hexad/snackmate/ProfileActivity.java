@@ -10,6 +10,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hexad.snackmate.Utils.ImageLoader;
 import com.hexad.snackmate.Utils.ImageResizer;
@@ -34,7 +35,6 @@ public class ProfileActivity extends Activity {
     private TextView guestTextView;
     private Button loginOrLogoutButton;
     private Button HomePageButton;
-    private ParseUser currentUser;
     private ImageView profilePicImageView;
     private Button guestLoginButton;
 
@@ -61,28 +61,14 @@ public class ProfileActivity extends Activity {
         loginOrLogoutButton = (Button) findViewById(R.id.login_or_logout_button);
         HomePageButton = (Button) findViewById(R.id.homepage_button);
         guestLoginButton = (Button) findViewById(R.id.guest_login_button);
-//
-//        if(currentUser!=null) {
-//            HomePageButton.setVisibility(View.VISIBLE);
-//        }
-//        else
-//            HomePageButton.setVisibility(View.GONE);
 
 
         loginOrLogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (currentUser != null) {
-                    // User clicked to log out.
-                    ParseUser.logOut();
-                    currentUser = null;
-                    showProfileLoggedOut();
-                } else {
-                    // User clicked to log in.
-                    ParseLoginBuilder loginBuilder = new ParseLoginBuilder(
+                ParseLoginBuilder loginBuilder = new ParseLoginBuilder(
                             ProfileActivity.this);
-                    startActivityForResult(loginBuilder.build(), LOGIN_REQUEST);
-                }
+                startActivityForResult(loginBuilder.build(), LOGIN_REQUEST);
             }
         });
 
@@ -96,18 +82,6 @@ public class ProfileActivity extends Activity {
         guestLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ParseAnonymousUtils.logIn(new LogInCallback() {
-                    @Override
-                    public void done(ParseUser user, ParseException e) {
-                        if (e != null) {
-                            Log.d("SnackMate", "Anonymous login failed.");
-                        } else {
-                            Log.d("SnackMate", "Anonymous user logged in.");
-                            Global.currentUser = user;
-                            Global.currentUser.put("name","Guest");
-                        }
-                    }
-                });
 
                 startActivity(new Intent(ProfileActivity.this, HomePageActivity.class));
             }
@@ -117,41 +91,33 @@ public class ProfileActivity extends Activity {
         @Override
     protected void onStart() {
         super.onStart();
-
-        currentUser = ParseUser.getCurrentUser();
-        if (currentUser != null) {
-            if (ParseAnonymousUtils.isLinked(currentUser)){
-                currentUser.logOutInBackground();
-                showProfileLoggedOut();
-            }
-            else
-                showProfileLoggedIn();
-        } else {
-            showProfileLoggedOut();
-        }
+        showProfileLoggedIn();
     }
 
     /**
      * Shows the profile of the given user.
      */
     private void showProfileLoggedIn() {
-        if (currentUser.getParseFile("profilePicture") != null){
+        if (ParseUser.getCurrentUser().getParseFile("profilePicture") != null){
             ImageLoader imageLoader = new ImageLoader(this);
-            imageLoader.displayImage(currentUser.getParseFile("profilePicture").getUrl(),
+            imageLoader.displayImage(ParseUser.getCurrentUser().getParseFile("profilePicture").getUrl(),
                     profilePicImageView);
         }
-        else
+        else {
             profilePicImageView.setVisibility(View.GONE);
+        }
 
         emailTextView.setVisibility(View.VISIBLE);
         nameTextView.setVisibility(View.VISIBLE);
 
         titleTextView.setText(R.string.profile_title_logged_in);
-        emailTextView.setText(currentUser.getEmail());
-        String fullName = currentUser.getString("name");
+        emailTextView.setText(ParseUser.getCurrentUser().getEmail());
+        String fullName = ParseUser.getCurrentUser().getString("name");
         if (fullName != null) {
             nameTextView.setText(fullName);
         }
+        else
+            nameTextView.setText("Guest");
         loginOrLogoutButton.setText(R.string.profile_logout_button_label);
         guestTextView.setVisibility(View.GONE);
         HomePageButton.setVisibility(View.VISIBLE);
