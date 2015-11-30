@@ -93,8 +93,8 @@ public class ItemDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 counter--;
-                if (counter < 0)
-                    counter = 0;
+                if (counter <= 0)
+                    counter = 1;
                 txt_counter.setText(Integer.toString(counter));
             }
         });

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -29,7 +30,7 @@ import at.markushi.ui.CircleButton;
  * Shuffle Activity
  * Slide shuffled item to like or dislike
  */
-public class ShuffleActivity extends Activity {
+public class ShuffleActivity extends AppCompatActivity {
 
     private CircleButton like;
     private CircleButton dismiss;
@@ -47,7 +48,6 @@ public class ShuffleActivity extends Activity {
 
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_shuffle);
         m_context = ShuffleActivity.this;
 

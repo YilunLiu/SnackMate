@@ -40,7 +40,7 @@ public class SnackMate extends Application {
         ParseTwitterUtils.initialize(getString(R.string.twitter_consumer_key),
                 getString(R.string.twitter_consumer_secret));
 
-        
+
         SnackItemService.list = SnackItemService.getAllSnackItemsSync();
         ParseUser.enableAutomaticUser();
     }
