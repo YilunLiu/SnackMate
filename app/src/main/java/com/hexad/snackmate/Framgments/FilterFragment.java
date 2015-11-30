@@ -26,22 +26,28 @@ import java.util.List;
 /**
  * Created by Michael Ji on 11/28/2015.
  */
-public class SelectFragment extends Fragment implements View.OnClickListener{
+
+/**
+ * This class extends Fragment to push/pop from stack in order to display open/close menu functionality
+ */
+public class FilterFragment extends Fragment implements View.OnClickListener{
     private ListView menuLv;
     private ListView subjectLv;
     private DataAdapter menuAdapter;
     private DataAdapter subjectAdapter;
     private View foldBtn;
     private View foldContent;
-    private View lamp;
     private int[] location;
     private boolean clicked;
     private String[] choices;
     private String[] data;
 
 
-    public static SelectFragment newInstance(int [] location,String[] choices, String[] data){
-        SelectFragment fg = new SelectFragment();
+    /**
+     * Create new instance of FilterFragment with given arguments
+     */
+    public static FilterFragment newInstance(int [] location,String[] choices, String[] data){
+        FilterFragment fg = new FilterFragment();
         Bundle bundle = new Bundle();
         bundle.putIntArray("LOCATION", location);
         bundle.putStringArray("CHOICES", choices);
@@ -54,6 +60,9 @@ public class SelectFragment extends Fragment implements View.OnClickListener{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
+
+
+        // get arguments for fragment and store into class variable
         if (args != null) {
             int [] l = args.getIntArray("LOCATION");
             if(l != null && l.length == 2)location = l;
@@ -73,8 +82,10 @@ public class SelectFragment extends Fragment implements View.OnClickListener{
         return layout;
     }
 
+    /**
+     * initialize the fragment view and set adapters and listeners for both level 1 and level 2 menu
+     */
     private void initView(final View layout){
-//        lamp = layout.findViewById(R.id.v_lamp);
         clicked = false;
         menuLv = (ListView) layout.findViewById(R.id.lv_menu);
         subjectLv = (ListView) layout.findViewById(R.id.lv_subject);
@@ -85,11 +96,12 @@ public class SelectFragment extends Fragment implements View.OnClickListener{
         lp.topMargin = location[1];
         foldBtn.setLayoutParams(lp);
         foldBtn.setOnClickListener(this);
-//        lamp.setOnClickListener(this);
         menuAdapter = new DataAdapter(getActivity().getBaseContext());
 
         menuAdapter.setData(allocateData());
         menuLv.setAdapter(menuAdapter);
+
+        //set menu listview to respond to user click to display correct level 2 menu
         menuLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -104,6 +116,7 @@ public class SelectFragment extends Fragment implements View.OnClickListener{
         subjectAdapter.setData(allocateSubject(0));
         subjectLv.setAdapter(subjectAdapter);
 
+        //listener for level 2 menu to filter
         subjectLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -113,7 +126,12 @@ public class SelectFragment extends Fragment implements View.OnClickListener{
                 GridView gridView = (GridView) activity.findViewById(R.id.homepage_gridview);
                 HomePageAdapter adapter = (HomePageAdapter) gridView.getAdapter();
 
-                if (pos == 0) {
+                if (pos == 0 ){
+                    adapter.setList(SnackItemService.list);
+                    adapter.notifyDataSetChanged();
+                    return;
+                }
+                else if (pos == 1) {
                     Country country = Country.All;
                     switch (selected) {
                         case "China":
@@ -135,7 +153,7 @@ public class SelectFragment extends Fragment implements View.OnClickListener{
                     }
 
                     adapter.filterByCountry(country);
-                } else if (pos == 1) {
+                } else if (pos == 2) {
                     Taste taste = Taste.All;
                     switch (selected) {
                         case "Sweet":
@@ -164,15 +182,18 @@ public class SelectFragment extends Fragment implements View.OnClickListener{
         });
     }
 
-    @Deprecated
+//    @Deprecated
     private List<String> allocateSubject(int i){
         //init test data
-        List<String> mList = new ArrayList<String>();
-            if (i == 0) {
+        List<String> mList = new ArrayList<>();
+            if( i == 0 ) {
+                mList.add(data[0]);
+            }
+            else if (i == 1) {
                 for (int index = 0; index < data.length / 2; index++) {
                     mList.add(data[index]);
                 }
-            } else if (i == 1) {
+            } else if (i == 2) {
                 for (int index = data.length / 2; index < data.length; index++) {
                     mList.add(data[index]);
                 }
@@ -180,10 +201,11 @@ public class SelectFragment extends Fragment implements View.OnClickListener{
 
         return mList;
     }
-    @Deprecated
+
+//    @Deprecated
     private List<String> allocateData(){
         //init test data
-        List<String> mList = new ArrayList<String>();
+        List<String> mList = new ArrayList<>();
         for(String str : choices)
             mList.add(str);
 
@@ -211,16 +233,12 @@ public class SelectFragment extends Fragment implements View.OnClickListener{
     }
 
     private void enterAnim(){
-        Animation turnOn = AnimationUtils.loadAnimation(getActivity().getBaseContext(),R.anim.fade_in);
-//        lamp.startAnimation(turnOn);
 
         Animation in = AnimationUtils.loadAnimation(getActivity().getBaseContext(),R.anim.popupwindow_slide_in_from_top);
         foldContent.startAnimation(in);
     }
 
     private void exitAnim(){
-        Animation turnOff = AnimationUtils.loadAnimation(getActivity().getBaseContext(),R.anim.fade_out);
-//        lamp.startAnimation(turnOff);
         Animation out = AnimationUtils.loadAnimation(getActivity().getBaseContext(),R.anim.popupwindow_slide_out_to_top);
 
         out.setAnimationListener(new Animation.AnimationListener() {
@@ -231,7 +249,6 @@ public class SelectFragment extends Fragment implements View.OnClickListener{
 
             @Override
             public void onAnimationEnd(Animation animation) {
-//                lamp.setVisibility(View.INVISIBLE);
                 foldContent.setVisibility(View.INVISIBLE);
                 getFragmentManager().popBackStack();
             }

@@ -24,6 +24,9 @@ import java.util.List;
 /**
  * Created by Michael Ji on 11/28/2015.
  */
+/**
+ * This class extends Fragment to push/pop from stack in order to display open/close menu functionality
+ */
 public class SortFragment extends Fragment implements View.OnClickListener{
     private ListView menuLv;
     private ListView subjectLv;
@@ -31,14 +34,16 @@ public class SortFragment extends Fragment implements View.OnClickListener{
     private DataAdapter subjectAdapter;
     private View foldBtn;
     private View foldContent;
-    private View lamp;
     private int[] location;
     private boolean clicked;
-    private String selected;
     private String[] choices;
     private String[] data;
 
 
+
+    /**
+     * Create new instance of SortFragment with given arguments
+     */
     public static SortFragment newInstance(int [] location,String[] choices, String[] data){
         SortFragment fg = new SortFragment();
         Bundle bundle = new Bundle();
@@ -53,6 +58,8 @@ public class SortFragment extends Fragment implements View.OnClickListener{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
+
+        // get arguments for fragment and store into class variable
         if (args != null) {
             int [] l = args.getIntArray("LOCATION");
             if(l != null && l.length == 2)location = l;
@@ -72,8 +79,10 @@ public class SortFragment extends Fragment implements View.OnClickListener{
         return layout;
     }
 
+    /**
+     * initialize the fragment view and set adapters and listeners for both level 1 and level 2 menu
+     */
     private void initView(final View layout){
-//        lamp = layout.findViewById(R.id.v_lamp);
         clicked = false;
         menuLv = (ListView) layout.findViewById(R.id.lv_menu);
         subjectLv = (ListView) layout.findViewById(R.id.lv_subject);
@@ -88,10 +97,11 @@ public class SortFragment extends Fragment implements View.OnClickListener{
 
         menuAdapter.setData(allocateData());
         menuLv.setAdapter(menuAdapter);
+
+        //set menu listview to respond to user click to display correct level 2 menu
         menuLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                final String sortType = adapterView.getItemAtPosition(i).toString();
                 menuAdapter.checked(i);
                 subjectAdapter.setData(allocateSubject(i));
                 subjectAdapter.notifyDataSetChanged();
@@ -103,6 +113,8 @@ public class SortFragment extends Fragment implements View.OnClickListener{
         subjectAdapter.setData(allocateSubject(0));
         subjectLv.setAdapter(subjectAdapter);
 
+
+        //listener for level 2 menu to sort
         subjectLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -153,11 +165,10 @@ public class SortFragment extends Fragment implements View.OnClickListener{
         });
     }
 
-    @Deprecated
     private List<String> allocateSubject(int i){
 
         //init test data
-        List<String> mList = new ArrayList<String>();
+        List<String> mList = new ArrayList<>();
             if (i == 0 || i == 1) {
                 for (int index = 0; index < data.length / 2; index++) {
                     mList.add(data[index]);
@@ -170,10 +181,10 @@ public class SortFragment extends Fragment implements View.OnClickListener{
 
         return mList;
     }
-    @Deprecated
+
     private List<String> allocateData(){
         //init test data
-        List<String> mList = new ArrayList<String>();
+        List<String> mList = new ArrayList<>();
         for(String str : choices)
             mList.add(str);
 
@@ -184,7 +195,8 @@ public class SortFragment extends Fragment implements View.OnClickListener{
     public void onClick(View view) {
 
 
-        if (clicked == false){
+        //if a menu already open,close it
+        if (!clicked){
             clicked = true;
             exitAnim();
         }
@@ -203,16 +215,13 @@ public class SortFragment extends Fragment implements View.OnClickListener{
     }
 
     private void enterAnim(){
-        Animation turnOn = AnimationUtils.loadAnimation(getActivity().getBaseContext(), R.anim.fade_in);
-//        lamp.startAnimation(turnOn);
 
         Animation in = AnimationUtils.loadAnimation(getActivity().getBaseContext(),R.anim.popupwindow_slide_in_from_top);
         foldContent.startAnimation(in);
     }
 
     private void exitAnim(){
-        Animation turnOff = AnimationUtils.loadAnimation(getActivity().getBaseContext(),R.anim.fade_out);
-//        lamp.startAnimation(turnOff);
+
         Animation out = AnimationUtils.loadAnimation(getActivity().getBaseContext(),R.anim.popupwindow_slide_out_to_top);
 
         out.setAnimationListener(new Animation.AnimationListener() {
@@ -223,7 +232,6 @@ public class SortFragment extends Fragment implements View.OnClickListener{
 
             @Override
             public void onAnimationEnd(Animation animation) {
-//                lamp.setVisibility(View.INVISIBLE);
                 foldContent.setVisibility(View.INVISIBLE);
                 getFragmentManager().popBackStack();
             }

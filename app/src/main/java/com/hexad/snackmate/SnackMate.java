@@ -22,16 +22,16 @@ public class SnackMate extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        // Required - Initialize the Parse SDK
+
         //set up for parse objects
         ParseObject.registerSubclass(SnackItem.class);
         ParseObject.registerSubclass(LineItem.class);
-        //Some test code for Parse
+
+        //Initialize Parse SDK
         Parse.enableLocalDatastore(this);
         Parse.initialize(this,getString(R.string.parse_app_id),getString(R.string.parse_client_key));
 
-//        Parse.setLogLevel(Parse.LOG_LEVEL_DEBUG);
-
+        //allow facebook login
         FacebookSdk.sdkInitialize(getApplicationContext());
         ParseFacebookUtils.initialize(this);
 
@@ -40,8 +40,10 @@ public class SnackMate extends Application {
         ParseTwitterUtils.initialize(getString(R.string.twitter_consumer_key),
                 getString(R.string.twitter_consumer_secret));
 
-
+        // get all snack items for display
         SnackItemService.list = SnackItemService.getAllSnackItemsSync();
+
+        // enable automatic user so that getCurrentUser() never returns null
         ParseUser.enableAutomaticUser();
     }
 }

@@ -32,11 +32,9 @@ import com.hexad.snackmate.Utils.Image.ImageHelper;
 import com.hexad.snackmate.ViewAdapters.HomePageAdapter;
 import com.hexad.snackmate.Models.LineItem;
 import com.hexad.snackmate.Models.SnackItem;
-import com.hexad.snackmate.Views.MultiLayerMenuView;
 import com.hexad.snackmate.R;
-import com.hexad.snackmate.Framgments.SelectFragment;
+import com.hexad.snackmate.Framgments.FilterFragment;
 import com.hexad.snackmate.Framgments.SortFragment;
-import com.hexad.snackmate.ViewAdapters.SubMultiMenuAdapter;
 import com.hexad.snackmate.Utils.Image.ImageLoader;
 import com.hexad.snackmate.Utils.Image.ImageResizer;
 import com.parse.ParseAnonymousUtils;
@@ -51,29 +49,22 @@ public class HomePageActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener,
                     SearchView.OnCloseListener {
 
+    //declare views and adapters
     private static final int LOGIN_REQUEST = 0;
-
     private static final int UPLOAD_ACTIVITY_REQUEST = 1;
-
-
-    String filters[] = new String[]{"Origin", "Taste"};
-
-    String sort[] = new String[]{"Price", "Rating", "Name"};
-
-    String choices[] =  new String[]{Country.All.toString(),Country.China.toString(), Country.Japan.toString(), Country.North_Korea.toString(), Country.Others.toString(),
-                    Taste.All.toString(),Taste.Sweet.toString(), Taste.Sour.toString(), Taste.Spicy.toString(), Taste.Salty.toString(), Taste.Others.toString()};
-
-    String choices2[] = new String[]{"Low to High", "High to Low", "A to Z","Z to A"};
-
     private View choseSubject;
     private View choseSubject2;
-    private MultiLayerMenuView subListView;
-    private SubMultiMenuAdapter subAdapter;
     private ArrayAdapter<String> filter_adapter;
     private GridView gridView;
-
     private SearchView searchView;
     private HomePageAdapter imageAdapter;
+
+    //declare string constants
+    private final String filters[] = new String[]{"All","Origin", "Taste"};
+    private final String sort[] = new String[]{"Price", "Rating", "Name"};
+    private final String choices[] =  new String[]{Country.All.toString(),Country.China.toString(), Country.Japan.toString(), Country.North_Korea.toString(), Country.Others.toString(),
+            Taste.All.toString(),Taste.Sweet.toString(), Taste.Sour.toString(), Taste.Spicy.toString(), Taste.Salty.toString(), Taste.Others.toString()};
+    private final String choices2[] = new String[]{"Low to High", "High to Low", "A to Z","Z to A"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +72,7 @@ public class HomePageActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-
+        //if current user is not anonymous, then save current items in wishlist and cart to user in cloud
         if (!ParseAnonymousUtils.isLinked(ParseUser.getCurrentUser())) {
             if (ParseUser.getCurrentUser().getList("wishList") == null) {
                 ParseUser.getCurrentUser().put("wishList", new ArrayList<SnackItem>());
@@ -93,21 +84,23 @@ public class HomePageActivity extends AppCompatActivity
             }
         }
 
+        //setup toolbar on top for search and shuffle
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //setup drawer
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        //setup navigation view inside drawer
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
 
         // Set up gridview on the homepage
-
         imageAdapter = new HomePageAdapter(this, SnackItemService.list);
         GridView gridView = (GridView) findViewById(R.id.homepage_gridview);
         gridView.setAdapter(imageAdapter);
@@ -122,18 +115,11 @@ public class HomePageActivity extends AppCompatActivity
             }
         });
 
-        //Set up spinner objects and add listeners for them
-//        init();
-        addItemsOnSpinners();
-        addListenerOnSpinnerItemSelection();
+        //Set up menu for filter and sort
+        addMenuForFilterAndSort();
 
 
     }
-
-//    private void init(){
-//        subListView=(MultiLayerMenu) findViewById(R.id.subListView);
-//        subListView.setBackgroundColor(Color.WHITE);
-//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -160,14 +146,15 @@ public class HomePageActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+        //get fragments(menu open)
         Fragment fg = getFragmentManager().findFragmentByTag("choiceSubject");
         Fragment fg2 = getFragmentManager().findFragmentByTag("choiceSubject2");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (fg != null && ((SelectFragment) fg).onBackPressed()) {
-            return;
+
+        //if filter or sort menu open, only close the drawer
+        if (fg != null && ((FilterFragment) fg).onBackPressed()) {
         } else if (fg2 != null && ((SortFragment) fg2).onBackPressed()) {
-            return;
         } else {
             if (drawer.isDrawerOpen(GravityCompat.START)) {
                 drawer.closeDrawer(GravityCompat.START);
@@ -235,12 +222,13 @@ public class HomePageActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+
+        //go to corresponding activity when item in navigation view selected
         if (id == R.id.nav_wish) {
             // Handle the camera action
             Intent intent = new Intent(HomePageActivity.this, WishListActivity.class);
@@ -253,12 +241,10 @@ public class HomePageActivity extends AppCompatActivity
             startActivity(new Intent(HomePageActivity.this, ContactUsActivity.class));
 
         } else if (id == R.id.nav_logout) {
-
+            ParseUser.logOut();
             if (ParseAnonymousUtils.isLinked(ParseUser.getCurrentUser())) {
-                ParseUser.logOut();
                 startActivity(new Intent(HomePageActivity.this, ProfileActivity.class));
             } else {
-                ParseUser.logOut();
                 ParseLoginBuilder loginBuilder = new ParseLoginBuilder(HomePageActivity.this);
                 startActivityForResult(loginBuilder.build(), LOGIN_REQUEST);
             }
@@ -269,14 +255,18 @@ public class HomePageActivity extends AppCompatActivity
         return true;
     }
 
-    public void addItemsOnSpinners() {
+
+
+    public void addMenuForFilterAndSort() {
+
+        //add filter menu
         choseSubject = findViewById(R.id.ll_select_subject);
         choseSubject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int[] location = new int[]{choseSubject.getLeft(), choseSubject.getTop()};
                 FragmentManager fm = getFragmentManager();
-                SelectFragment sf = SelectFragment.newInstance(location, filters, choices);
+                FilterFragment sf = FilterFragment.newInstance(location, filters, choices);
                 FragmentTransaction ft = fm.beginTransaction();
                 ft.add(R.id.fl_subject_fragment, sf, "choiceSubject");
                 ft.addToBackStack(null);
@@ -284,13 +274,14 @@ public class HomePageActivity extends AppCompatActivity
             }
         });
 
+        //add sort menu
         choseSubject2 = findViewById(R.id.ll_select_subject2);
         choseSubject2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int[] location = new int[]{choseSubject2.getLeft(), choseSubject2.getTop()};
                 FragmentManager fm2 = getFragmentManager();
-                SortFragment sf2 = SortFragment.newInstance(location, sort,choices2);
+                SortFragment sf2 = SortFragment.newInstance(location, sort, choices2);
                 FragmentTransaction ft2 = fm2.beginTransaction();
                 ft2.add(R.id.fl_subject_fragment2, sf2, "choiceSubject2");
                 ft2.addToBackStack(null);
@@ -300,101 +291,6 @@ public class HomePageActivity extends AppCompatActivity
 
 
     }
-
-    public void addListenerOnSpinnerItemSelection() {
-
-
-//        filter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View arg1, int position,
-//                                       long arg3) {
-//
-//                // TODO Auto-generated method stub
-//                subAdapter = new SubMultiMenuAdapter(getApplicationContext(), choices, position);
-//
-//                    final int location = position;
-//                    final String filter_type = parent.getItemAtPosition(position).toString();
-//                    if (filter_type != "Filter"){
-//                    subListView.setVisibility(View.VISIBLE);
-//                    subListView.setAdapter(subAdapter);
-//
-//                    subListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                        @Override
-//                        public void onItemClick(AdapterView<?> arg0, View arg1,
-//                                                int arg2, long arg3) {
-//
-//                            subListView.setVisibility(View.GONE);
-//                            String selected = choices[location][arg2];
-//                            if (filter_type == "Filter") {
-//
-//                                return;
-//                            }
-//                            else if (filter_type == "Origins") {
-//                                Country country = Country.All;
-//                                switch (selected) {
-//                                    case "China":
-//                                        country = Country.China;
-//                                        break;
-//                                    case "Japan":
-//                                        country = Country.Japan;
-//                                        break;
-//                                    case "Others":
-//                                        country = Country.Others;
-//                                        break;
-//                                    case "North Korea":
-//                                        country = Country.North_Korea;
-//                                        break;
-//                                    case "All":
-//                                        imageAdapter.setList(SnackItemService.list);
-//                                        return;
-//                                }
-//                                imageAdapter.filterByCountry(country);
-//                            } else {
-//                                Taste taste = Taste.All;
-//                                switch (selected) {
-//                                    case "Sweet":
-//                                        taste = Taste.Sweet;
-//                                        break;
-//                                    case "Sour":
-//                                        taste = Taste.Sour;
-//                                        break;
-//                                    case "Salty":
-//                                        taste = Taste.Salty;
-//                                        break;
-//                                    case "Spicy":
-//                                        taste = Taste.Spicy;
-//                                        break;
-//                                    case "Others":
-//                                        taste = Taste.Others;
-//                                        break;
-//                                    case "All":
-//                                        imageAdapter.setList(SnackItemService.list);
-//                                        return;
-//                                }
-//                                imageAdapter.filterByTaste(taste);
-//                            }
-//                            filter_adapter.notifyDataSetChanged();
-//                            subAdapter.notifyDataSetChanged();
-//                        }
-//                    });
-//                    }
-//                    else{
-//                        subListView.setVisibility(View.GONE);
-//                    }
-//
-//            }
-//
-//
-//            public void onNothingSelected(AdapterView<?> parent)
-//            {
-//
-//            }
-//        });
-
-    }
-
-
 
     /* Search View Methods */
 

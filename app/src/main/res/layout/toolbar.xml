@@ -14,56 +14,6 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".HomePage">
 
-    <!--<android.support.v7.widget.Toolbar-->
-    <!--android:id="@+id/my_action_bar_toolbar"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="39dp"-->
-    <!--android:background="#AFAFAF"-->
-    <!--android:minHeight="200dp">-->
-
-    <!--<LinearLayout-->
-        <!--android:id="@+id/LinearLayout"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:gravity="center"-->
-        <!--android:orientation="horizontal">-->
-
-        <!--<com.hexad.snackmate.MultiLayerMenu-->
-            <!--android:id="@+id/listView"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:choiceMode="singleChoice"-->
-            <!--android:scrollbars="none"-->
-            <!--android:divider="@drawable/list_divide"-->
-            <!--android:listSelector="#00000000"-->
-
-            <!-->-->
-            <!--&lt;!&ndash;android:background="#e4e3de"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-
-        <!--</com.hexad.snackmate.MultiLayerMenu>-->
-
-
-
-
-        <!--<Spinner-->
-            <!--android:id="@+id/spinner1"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="fill_parent"-->
-            <!--android:layout_weight="1"-->
-
-        <!--/>-->
-
-        <!--<com.hexad.snackmate.AnimatedExpandableListView-->
-            <!--android:id="@+id/expandableList"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="fill_parent"-->
-            <!--android:layout_weight="1"/>-->
-
-
 
     <GridView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/homepage_gridview"
@@ -116,7 +66,9 @@
             <FrameLayout
                 android:id="@+id/fl_subject_fragment"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
 
             </FrameLayout>
 
@@ -157,21 +109,12 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true">
+                android:layout_alignParentStart="false">
 
             </FrameLayout>
 
         </RelativeLayout>
     </LinearLayout>
 
-
-    <!--<Spinner-->
-        <!--android:id="@+id/spinner2"-->
-        <!--android:layout_width="176dp"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:layout_gravity="right|top"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_alignParentEnd="true" />-->
 
 </RelativeLayout>
