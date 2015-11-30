@@ -23,9 +23,10 @@
         android:layout_marginBottom="10dp" >
 
         <Button
-            android:id="@+id/remove"
+            android:id="@+id/buyItBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="onBuyPressed"
             android:text="Check Out"
             />
 
