@@ -265,10 +265,12 @@ public class CartActivity extends AppCompatActivity {
                          * For sample mobile backend interactions, see
                          * https://github.com/paypal/rest-api-sdk-python/tree/master/samples/mobile_backend
                          */
+                        ParseUser.getCurrentUser().remove("cart");
                         Toast.makeText(
                                 getApplicationContext(),
                                 "Payments Success!", Toast.LENGTH_LONG)
                                 .show();
+                        finish();
 
                     } catch (JSONException e) {
                         Log.e(TAG, "an extremely unlikely failure occurred: ", e);
