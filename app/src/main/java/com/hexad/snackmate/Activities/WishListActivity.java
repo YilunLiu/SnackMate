@@ -11,7 +11,7 @@ import android.widget.ListView;
 import com.hexad.snackmate.Models.SnackItem;
 import com.hexad.snackmate.R;
 import com.hexad.snackmate.Listeners.SwipeDismissListViewTouchListener;
-import com.hexad.snackmate.ViewApadters.WishListItemAdapter;
+import com.hexad.snackmate.ViewAdapters.WishListItemAdapter;
 import com.parse.ParseUser;
 
 import java.util.List;

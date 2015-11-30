@@ -17,8 +17,8 @@ import com.hexad.snackmate.Enumerations.Country;
 import com.hexad.snackmate.Enumerations.Taste;
 import com.hexad.snackmate.R;
 import com.hexad.snackmate.Services.SnackItemService;
-import com.hexad.snackmate.ViewApadters.DataAdapter;
-import com.hexad.snackmate.ViewApadters.HomePageAdapter;
+import com.hexad.snackmate.ViewAdapters.DataAdapter;
+import com.hexad.snackmate.ViewAdapters.HomePageAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

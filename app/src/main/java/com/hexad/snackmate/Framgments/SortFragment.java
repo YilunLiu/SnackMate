@@ -15,8 +15,8 @@ import android.widget.RelativeLayout;
 
 import com.hexad.snackmate.Enumerations.SortType;
 import com.hexad.snackmate.R;
-import com.hexad.snackmate.ViewApadters.DataAdapter;
-import com.hexad.snackmate.ViewApadters.HomePageAdapter;
+import com.hexad.snackmate.ViewAdapters.DataAdapter;
+import com.hexad.snackmate.ViewAdapters.HomePageAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

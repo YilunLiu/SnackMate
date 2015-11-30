@@ -1,4 +1,4 @@
-package com.hexad.snackmate.ViewApadters;
+package com.hexad.snackmate.ViewAdapters;
 
 
 import android.content.Context;

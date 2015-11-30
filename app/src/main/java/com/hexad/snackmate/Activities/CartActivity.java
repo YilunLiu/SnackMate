@@ -2,11 +2,10 @@ package com.hexad.snackmate.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
-import com.hexad.snackmate.ViewApadters.CartItemAdapter;
+import com.hexad.snackmate.ViewAdapters.CartItemAdapter;
 import com.hexad.snackmate.Models.LineItem;
 import com.hexad.snackmate.R;
 import com.hexad.snackmate.Listeners.SwipeDismissListViewTouchListener;
