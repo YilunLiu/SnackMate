@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -19,13 +18,11 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.hexad.snackmate.R;
-import com.hexad.snackmate.Utils.Utils;
-import com.parse.Parse;
+import com.hexad.snackmate.Utils.Image.ImageHelper;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 
 /**
  * Created by yilunliu on 11/15/15.
@@ -140,7 +137,7 @@ public class UploadImageActivity extends Activity {
             cursor.close();
 
             bitmap = BitmapFactory.decodeFile(picturePath);
-            bitmap = Utils.getCircleBitmap(bitmap);
+            bitmap = ImageHelper.getCircleBitmap(bitmap);
             previewImageView.setImageBitmap(bitmap);
         }
     }

@@ -1,16 +1,12 @@
 package com.hexad.snackmate;
 
 import android.app.Application;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
-import com.hexad.snackmate.Items.LineItem;
-import com.hexad.snackmate.Items.SnackItem;
-import com.hexad.snackmate.Items.SnackItemService;
-import com.parse.LogInCallback;
+import com.hexad.snackmate.Models.LineItem;
+import com.hexad.snackmate.Models.SnackItem;
+import com.hexad.snackmate.Services.SnackItemService;
 import com.parse.Parse;
-import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
 import com.parse.ParseTwitterUtils;
@@ -44,7 +40,7 @@ public class SnackMate extends Application {
         ParseTwitterUtils.initialize(getString(R.string.twitter_consumer_key),
                 getString(R.string.twitter_consumer_secret));
 
-        Global.list = SnackItemService.getAllSnackItemsSync();
+        SnackItemService.list = SnackItemService.getAllSnackItemsSync();
         ParseUser.enableAutomaticUser();
     }
 }
