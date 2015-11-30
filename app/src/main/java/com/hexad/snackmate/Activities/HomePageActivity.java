@@ -58,7 +58,7 @@ public class HomePageActivity extends AppCompatActivity
 
     String filters[] = new String[]{"Origin", "Taste"};
 
-    String sort[] = new String[]{"Price", "Rating", "Alphabet"};
+    String sort[] = new String[]{"Price", "Rating", "Name"};
 
     String choices[] =  new String[]{Country.All.toString(),Country.China.toString(), Country.Japan.toString(), Country.North_Korea.toString(), Country.Others.toString(),
                     Taste.All.toString(),Taste.Sweet.toString(), Taste.Sour.toString(), Taste.Spicy.toString(), Taste.Salty.toString(), Taste.Others.toString()};

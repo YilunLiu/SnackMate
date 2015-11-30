@@ -10,7 +10,7 @@
     <string name="button_price">Price</string>
     <string name="button_rate">Rate</string>
     <string name="button_country">Country</string>
-    <string name="button_alphabet">Alphabetical</string>
+    <string name="button_alphabet">Name</string>
 
     <!-- STRING CONSTANTS FOR LOGIN API CREDENTIALS-->
     <string name="parse_app_id">QrdsALfd999wYmrLRoD0sAuEnc7803FQ83bC9Dkn</string>
@@ -32,6 +32,6 @@
     <!-- STRING CONSTANTS FOR WISHLIST-->
     <string name="wishlist_remove">Remove from WishList</string>
     <string name="select_filter">Filter</string>
-    <string name="select_sort">Sort</string>
-    <string name="edit_by_tab">点击图片\n可编辑它</string>
+    <string name="select_sort">Sort by</string>
+    <string name="edit_by_tab">Click on the picture\nto edit</string>
 </resources>
