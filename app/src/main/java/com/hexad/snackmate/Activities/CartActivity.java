@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ * Created by Lun Li
  * Created by Pin Wang
  * show the shopping cart
  */
@@ -157,7 +158,16 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private PayPalPayment getThingToBuy(String paymentIntent) {
-        return new PayPalPayment(new BigDecimal("20.00"), "USD", "Your Order",
+        double total = 0;
+        for (LineItem item: itemList){
+            try {
+                total += item.getPrice() * item.getCount();
+            }
+            catch (Exception e){
+
+            }
+        }
+        return new PayPalPayment(new BigDecimal(total), "USD", "Your Order",
                 paymentIntent);
     }
 
