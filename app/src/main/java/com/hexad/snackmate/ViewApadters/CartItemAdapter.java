@@ -16,7 +16,7 @@ import com.hexad.snackmate.Utils.Image.ImageLoader;
 import java.util.List;
 
 /**
- * Created by Allen on 2015/11/14.
+ * Created by Lun Li on 2015/11/14.
  */
 public class CartItemAdapter extends ArrayAdapter<LineItem>{
 
@@ -32,6 +32,13 @@ public class CartItemAdapter extends ArrayAdapter<LineItem>{
         resourceId = textViewResourceId;
     }
 
+    /**
+     * getView
+     * @param position
+     * @param v
+     * @param parent
+     * @return the itme view in the list
+     */
     @Override
     public View getView(int position, View v, ViewGroup parent){
         LineItem item = getItem(position);

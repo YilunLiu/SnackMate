@@ -25,7 +25,12 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     private SnackItem item;
     private ImageLoader imageLoader;
-    private int counter = 1;
+    private int counter = 1;    // the amount that one can add to cart
+
+    /**
+     * onCreate
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +44,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int id = intent.getIntExtra("itemid", 0);
         item = SnackItemService.list.get(id);
+        // show the rating bar
         RatingBar ratingbar = (RatingBar) findViewById(R.id.rating_bar);
         ratingbar.setRating(item.getAverageRating().floatValue());
 
@@ -55,6 +61,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         ImageView imageView = (ImageView) findViewById(R.id.image_itemdetail_view);
         imageLoader.displayImage(item.getImageURL(), imageView);
 
+        // implement the wish list button
         Button wish = (Button)findViewById(R.id.item_detail_wish);
         wish.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +73,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                 Toast.makeText(ItemDetailActivity.this, "Added to the Wishlist!", Toast.LENGTH_SHORT).show();
             }
         });
-
+        // implement the cart button
         Button cart = (Button)findViewById(R.id.item_detail_cart);
         cart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +88,7 @@ public class ItemDetailActivity extends AppCompatActivity {
 
         Button add = (Button)findViewById(R.id.item_add);
         Button subtract = (Button)findViewById(R.id.item_subtract);
+        // set the amount of buying addition and subtraction
         final TextView txt_counter = (TextView)findViewById(R.id.item_detail_counter);
         add.setOnClickListener(new View.OnClickListener() {
             @Override

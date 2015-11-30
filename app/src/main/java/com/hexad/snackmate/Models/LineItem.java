@@ -5,7 +5,8 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 /**
- * Created by Allen on 2015/11/14.
+ * Created by Lun Li on 2015/11/14.
+ * the item listed in the cart
  */
 
 /*
@@ -32,17 +33,12 @@ public class LineItem extends ParseObject {
     public LineItem(){
 //        super("LineTtem");
     }
-//    public LineItem(SnackItem snackItem){
-//        super("LineItem");
-//        String id = snackItem.getObjectId();
-//        put(referenceKey, id);
-//        put(titleKey, snackItem.getTitle());
-//        put(imageURLKey, snackItem.getImageURL());
-//        put(priceKey, snackItem.getPrice());
-//        put(avgRatingKey, snackItem.getAverageRating());
-//        saveInBackground();
-//    }
 
+    /**
+     * LineItem constructor
+     * @param snackItem
+     * @param count
+     */
     public LineItem(SnackItem snackItem, int count){
         super("LineItem");
         String id = snackItem.getObjectId();
@@ -55,23 +51,55 @@ public class LineItem extends ParseObject {
         saveInBackground();
     }
 
+    // getter methods
+
+    /**
+     * getCount
+     * @return the amount of items
+     * @throws Exception
+     */
     public int getCount() throws Exception{ return fetchIfNeeded().getNumber(countKey).intValue();}
+
+    /**
+     * getTitle
+     * @return the title of the item
+     * @throws Exception
+     */
     public String getTitle() throws Exception{
         return  fetchIfNeeded().getString(titleKey);
     }
 
+    /**
+     * getImage
+     * @return the ImageURL
+     * @throws Exception
+     */
     public String getImageURL() throws Exception{
         return  fetchIfNeeded().getString(imageURLKey);
     }
 
+    /**
+     * getPrice
+     * @return the price of the item
+     * @throws Exception
+     */
     public Double getPrice() throws Exception{
         return  fetchIfNeeded().getNumber(priceKey).doubleValue();
     }
 
+    /**
+     * getAverageRating
+     * @return the rating
+     * @throws Exception
+     */
     public Double getAverageRating() throws Exception{
         return  fetchIfNeeded().getNumber(avgRatingKey).doubleValue();
     }
 
+    /**
+     * ParseQuery pull the data from parse
+     * @return the data
+     */
     static public ParseQuery<LineItem> getQuery(){
         return ParseQuery.getQuery(LineItem.class);
     }

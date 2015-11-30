@@ -13,17 +13,26 @@ import com.hexad.snackmate.Listeners.SwipeDismissListViewTouchListener;
 import com.parse.ParseUser;
 
 import java.util.List;
-
+/**
+ * Created by Lun Li
+ * show the shopping cart
+ */
 public class CartActivity extends AppCompatActivity {
 
     ListView list;
     List<LineItem> itemList;
 
+    /**
+     * onCreate
+     * @param SavedInstanceState
+     * return void
+     */
     @Override
     protected void onCreate(Bundle SavedInstanceState) {
         super.onCreate(SavedInstanceState);
         setContentView(R.layout.activity_cart);
         setTitle("Cart");
+        // get the data
         try {
             itemList = ParseUser.getCurrentUser().fetchIfNeeded().getList("cart");
         }catch (Exception e){}
@@ -31,13 +40,14 @@ public class CartActivity extends AppCompatActivity {
         list = (ListView) findViewById(R.id.cart);
         if (itemList == null)
         list.setEmptyView(findViewById(R.id.cart_empty));
-
+        // show the list
         else {
             findViewById(R.id.cart_empty).setVisibility(View.GONE);
-            Log.d("cart size", Integer.toString(itemList.size()));
+
             final CartItemAdapter adapter = new CartItemAdapter(CartActivity.this, R.layout.cart_item, itemList);
 
             list.setAdapter(adapter);
+            // implement the deleting an item from the cart
             SwipeDismissListViewTouchListener touchListener =
                     new SwipeDismissListViewTouchListener(
                             list,
@@ -47,6 +57,7 @@ public class CartActivity extends AppCompatActivity {
                                     return true;
                                 }
 
+                                // handle the deleted item
                                 @Override
                                 public void onDismiss(ListView listView, int[] reverseSortedPositions) {
                                     for (int position : reverseSortedPositions) {
