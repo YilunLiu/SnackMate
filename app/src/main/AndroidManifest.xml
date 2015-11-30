@@ -74,6 +74,7 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
+        <activity android:name=".Activities.ContactUsActivity"></activity>
         <activity android:name=".Activities.ItemDetailActivity" >
             <intent-filter>
                 <action android:name="com.example.activitytest.ACTION_START" />

@@ -250,6 +250,7 @@ public class HomePageActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_contact) {
+            startActivity(new Intent(HomePageActivity.this, ContactUsActivity.class));
 
         } else if (id == R.id.nav_logout) {
 
