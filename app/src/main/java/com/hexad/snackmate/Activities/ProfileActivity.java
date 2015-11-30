@@ -107,11 +107,14 @@ public class ProfileActivity extends Activity {
         emailTextView.setText(ParseUser.getCurrentUser().getEmail());
         String fullName = ParseUser.getCurrentUser().getString("name");
         if (fullName != null) {
+            loginOrLogoutButton.setText("Log out");
             nameTextView.setText(fullName);
         }
-        else
+        else{
             nameTextView.setText("Guest");
-        loginOrLogoutButton.setText(R.string.profile_logout_button_label);
+            loginOrLogoutButton.setText("Sign In");
+
+        }
         guestTextView.setVisibility(View.GONE);
         HomePageButton.setVisibility(View.VISIBLE);
         guestLoginButton.setVisibility(View.GONE);

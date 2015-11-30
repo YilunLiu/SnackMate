@@ -31,7 +31,7 @@ import com.hexad.snackmate.Utils.Utils;
 
 public class ImageLoader {
 
-    MemoryCache memoryCache = new MemoryCache();
+    MemoryCache memoryCache = MemoryCache.defaultCache;
     FileCache fileCache;
     private Map<ImageView, String> imageViews = Collections
             .synchronizedMap(new WeakHashMap<ImageView, String>());

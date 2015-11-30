@@ -10,73 +10,69 @@ import java.util.Map;
 import java.util.Map.Entry;
 import android.graphics.Bitmap;
 import android.util.Log;
+import android.util.LruCache;
 
 public class MemoryCache {
+
+    public static  MemoryCache defaultCache = new MemoryCache();
 
     private static final String TAG = "MemoryCache";
 
     // Last argument true for LRU ordering
-    private Map<String, Bitmap> cache = Collections
-            .synchronizedMap(new LinkedHashMap<String, Bitmap>(10, 1.5f, true));
+    private LruCache<String,Bitmap> cache;
 
     // Current allocated size
     private long size = 0;
 
     // Max memory in bytes
-    private long limit = 1000000;
+    private int limit = 1000000;
 
-    public MemoryCache() {
+    private MemoryCache() {
         // Use 25% of available heap size
-        setLimit(Runtime.getRuntime().maxMemory() / 4);
-    }
-
-    public void setLimit(long new_limit) {
-        limit = new_limit;
-        Log.i(TAG, "MemoryCache will use up to " + limit / 1024. / 1024. + "MB");
-    }
-
-    public Bitmap get(String id) {
-        try {
-            if (!cache.containsKey(id))
-                return null;
-            return cache.get(id);
-        } catch (NullPointerException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-    }
-
-    public void put(String id, Bitmap bitmap) {
-        try {
-            if (cache.containsKey(id))
-                size -= getSizeInBytes(cache.get(id));
-            cache.put(id, bitmap);
-            size += getSizeInBytes(bitmap);
-            checkSize();
-        } catch (Throwable th) {
-            th.printStackTrace();
-        }
-    }
-
-    private void checkSize() {
-        Log.i(TAG, "cache size=" + size + " length=" + cache.size());
-        if (size > limit) {
-            // Least recently accessed item will be the first one iterated
-            Iterator<Entry<String, Bitmap>> iter = cache.entrySet().iterator();
-            while (iter.hasNext()) {
-                Entry<String, Bitmap> entry = iter.next();
-                size -= getSizeInBytes(entry.getValue());
-                iter.remove();
-                if (size <= limit)
-                    break;
+        setLimit((int)Runtime.getRuntime().maxMemory() / 1024);
+        cache = new LruCache<String,Bitmap>(limit){
+            @Override
+            protected int sizeOf(String key, Bitmap value) {
+                return value.getByteCount()/1024;
             }
-            Log.i(TAG, "Clean cache. New size " + cache.size());
+        };
+    }
+
+    public void setLimit(int new_limit) {
+        limit = new_limit;
+        Log.i(TAG, "MemoryCache will use up to " + limit / 1024.  + "MB");
+    }
+
+    public Bitmap get(String id){
+        return cache.get(id);
+    }
+
+
+    public void put(String id, Bitmap bitmap){
+        if(get(id) == null){
+            cache.put(id, bitmap);
         }
     }
+
+//    private void checkSize() {
+//        Log.i(TAG, "cache size=" + size + " length=" + cache.size());
+//        if (size > limit) {
+//            // Least recently accessed item will be the first one iterated
+//            Iterator<Entry<String, Bitmap>> iter = cache.entrySet().iterator();
+//            while (iter.hasNext()) {
+//                Entry<String, Bitmap> entry = iter.next();
+//                size -= getSizeInBytes(entry.getValue());
+//                iter.remove();
+//                if (size <= limit)
+//                    break;
+//            }
+//            Log.i(TAG, "Clean cache. New size " + cache.size());
+//        }
+//    }
 
     public void clear() {
         try {
-            cache.clear();
+            cache.evictAll();
             size = 0;
         } catch (NullPointerException ex) {
             ex.printStackTrace();
