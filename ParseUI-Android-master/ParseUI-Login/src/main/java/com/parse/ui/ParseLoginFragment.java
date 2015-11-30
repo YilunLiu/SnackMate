@@ -70,6 +70,7 @@ public class ParseLoginFragment extends ParseLoginFragmentBase {
   private Button parseSignupButton;
   private Button facebookLoginButton;
   private Button twitterLoginButton;
+  private Button guestLoginButton;
   private ParseLoginFragmentListener loginFragmentListener;
   private ParseOnLoginSuccessListener onLoginSuccessListener;
 
@@ -100,8 +101,9 @@ public class ParseLoginFragment extends ParseLoginFragmentBase {
     parseLoginHelpButton = (Button) v.findViewById(R.id.parse_login_help);
     parseLoginButton = (Button) v.findViewById(R.id.parse_login_button);
     parseSignupButton = (Button) v.findViewById(R.id.parse_signup_button);
-    facebookLoginButton = (Button) v.findViewById(R.id.facebook_login);
-    twitterLoginButton = (Button) v.findViewById(R.id.twitter_login);
+//    facebookLoginButton = (Button) v.findViewById(R.id.facebook_login);
+//    twitterLoginButton = (Button) v.findViewById(R.id.twitter_login);
+    guestLoginButton = (Button) v.findViewById(R.id.guest_login_button_parse);
 
     if (appLogo != null && config.getAppLogo() != null) {
       appLogo.setImageResource(config.getAppLogo());
@@ -115,6 +117,7 @@ public class ParseLoginFragment extends ParseLoginFragmentBase {
     if (allowTwitterLogin()) {
       setUpTwitterLogin();
     }
+    setUpGuestLogin();
     return v;
   }
 
@@ -287,6 +290,16 @@ public class ParseLoginFragment extends ParseLoginFragmentBase {
       }
     }
   };
+
+  private void setUpGuestLogin(){
+    guestLoginButton.setVisibility(View.VISIBLE);
+    guestLoginButton.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        getActivity().finish();
+      }
+    });
+  }
 
   private void setUpFacebookLogin() {
     facebookLoginButton.setVisibility(View.VISIBLE);
