@@ -84,9 +84,6 @@ public class SnackItem extends ParseObject {
         return getNumber(avgRatingKey).doubleValue();
     }
 
-    //TODO getReviews
-
-
     static public ParseQuery<SnackItem> getQuery(){
         return ParseQuery.getQuery(SnackItem.class);
     }

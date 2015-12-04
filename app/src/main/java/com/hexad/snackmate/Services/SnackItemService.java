@@ -13,6 +13,13 @@ import java.util.List;
 /**
  * Created by yilunliu on 10/29/15.
  */
+
+/*
+    This class provides utils to get items snackitems for Parse
+    It servers as an adapter for Parse API
+    All the methods in class are sync
+ */
+
 public class SnackItemService {
 
     public static List<SnackItem> list;
@@ -83,6 +90,7 @@ public class SnackItemService {
             query.setLimit(limit);
         }
 
+        // change order according to the sorting type
         switch(sortType){
             case Price_high_to_low:
                 query.orderByDescending(SnackItem.priceKey);
@@ -103,7 +111,6 @@ public class SnackItemService {
         try{
             list = query.find();
         } catch (ParseException e ){
-            //TODO
         }
         return list;
     }
