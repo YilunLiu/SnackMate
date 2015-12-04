@@ -6,8 +6,15 @@ import java.util.Map;
 /**
  * Created by yilunliu on 10/29/15.
  */
+
+
+/*
+    This enum class aims to provide all types of Taste
+    that is associated with snackitems
+ */
 public enum Taste {
 
+    // All types of Taste
     All(-1),Sweet(0), Sour(1), Spicy(2), Salty(3), Others(4);
 
     public int value;
@@ -24,6 +31,7 @@ public enum Taste {
         }
     }
 
+    // constructor for enum Taste
     public static Taste fromInt(int i){
         Taste type = map.get(Integer.valueOf(i));
         if (type == null){
@@ -32,6 +40,7 @@ public enum Taste {
         return type;
     }
 
+    // string presentation for enum Taste
     public String toString(){
         switch (this){
             case All: return "All";

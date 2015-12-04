@@ -7,8 +7,9 @@ import java.util.Map;
  * Created by yilunliu on 10/29/15.
  */
 
-/* Enumeration on Country,
-    int value is the country code
+/*
+    This enum class aims to provide all types of Country
+    that is associated with snackitems
  */
 public enum Country{
     China(86), Japan(81), North_Korea(850), Others(0), All(-1), ;
@@ -27,6 +28,7 @@ public enum Country{
         }
     }
 
+    // constructor for enum
     public static Country fromInt(int i){
         Country type = map.get(Integer.valueOf(i));
         if (type == null){
@@ -35,6 +37,7 @@ public enum Country{
         return type;
     }
 
+    // string representation for enum
     public String toString(){
         switch (this){
             case All: return "All";
