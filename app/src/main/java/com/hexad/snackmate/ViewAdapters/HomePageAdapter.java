@@ -81,15 +81,19 @@ public class HomePageAdapter extends BaseAdapter {
             cell = inflater.inflate(R.layout.home_page_individual_item,null);
         }
 
+        // get instances of views
         final TextView textView = (TextView) cell.findViewById(R.id.item_cell_textView);
         final ImageView imageView = (ImageView) cell.findViewById(R.id.item_cell_imageView);
         final TextView priceView = (TextView) cell.findViewById(R.id.item_cell_textView_price);
         SnackItem item = list.get(position);
+
         // set text
         String message = item.getTitle();
         textView.setText(message);
         String price = "$ " + item.getPrice().toString();
         priceView.setText(price);
+
+        // set the rating
         RatingBar ratingbar = (RatingBar)cell.findViewById(R.id.rating_bar);
         ratingbar.setRating(item.getAverageRating().floatValue());
 
@@ -102,6 +106,13 @@ public class HomePageAdapter extends BaseAdapter {
 
     }
 
+
+    /*
+        this method sort the list by type
+        it is called when the user selects one sort type
+        @param : sortType - sortType : type of sorting order
+        @return: NONE
+     */
     public void SortByType(SortType sortType){
         if ((country.equals(Country.All) )&& (taste.equals(Taste.All))) {
             switch (sortType) {
@@ -142,14 +153,26 @@ public class HomePageAdapter extends BaseAdapter {
         }
 
     }
+
+    /*
+        This method filters list of item by country
+        @param : country - Country: country type to filter the list
+     */
     public void filterByCountry(Country country){
         filterByCountry(sortType,country);
     }
 
+    /*
+        This method filters list of item by taste
+        @param : taste - Taste: taste type to filter the list
+    */
     public void filterByTaste(Taste taste){
         filterByTaste(sortType,taste);
     }
 
+    /*
+        a delegate method for filterByCountry
+     */
     private void filterByCountry(SortType sortType, Country country){
         if (country == Country.All)
             this.country = country;
@@ -159,6 +182,9 @@ public class HomePageAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    /*
+        a delegate method for filterByCountry
+    */
     private void filterByTaste(SortType sortType, Taste taste){
         if (taste == taste.All)
             this.taste = taste;
