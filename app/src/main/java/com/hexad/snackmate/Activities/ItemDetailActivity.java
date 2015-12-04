@@ -42,8 +42,8 @@ public class ItemDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item_detail);
 
         Intent intent = getIntent();
-        int id = intent.getIntExtra("itemid", 0);
-        item = SnackItemService.list.get(id);
+        String id = intent.getStringExtra("itemid");
+        item = SnackItemService.getItemById(id);
         // show the rating bar
         RatingBar ratingbar = (RatingBar) findViewById(R.id.rating_bar);
         ratingbar.setRating(item.getAverageRating().floatValue());

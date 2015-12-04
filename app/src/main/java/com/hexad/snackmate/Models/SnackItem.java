@@ -39,6 +39,7 @@ public class SnackItem extends ParseObject {
     public static String tasteKey = "taste";
     public static String avgRatingKey = "avgRating";
     public static String reviewsKey = "reviews";
+    public static String objectIdKey = "objectId";
 
     /*default constructor*/
     public SnackItem(){
@@ -47,6 +48,7 @@ public class SnackItem extends ParseObject {
     /* getter method */
 
     public int getIndex() {return getInt(indexKey); }
+
 
     public String getTitle(){
         return getString(titleKey);

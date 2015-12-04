@@ -8,6 +8,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -23,6 +24,7 @@ import java.util.List;
 public class SnackItemService {
 
     public static List<SnackItem> list;
+    private static HashMap<String,SnackItem> map = new HashMap<String, SnackItem>();
 
     static public void getAllSnackItems(FindCallback<SnackItem> callback){
         ParseQuery<SnackItem> query = SnackItem.getQuery();
@@ -36,9 +38,11 @@ public class SnackItemService {
         List<SnackItem> list = null;
         try {
             list = query.find();
+            for (SnackItem item: list){
+                map.put(item.getObjectId(), item);
+            }
         }
         catch (ParseException e){
-            //TODO
         }
         return list;
     }
@@ -110,9 +114,20 @@ public class SnackItemService {
 
         try{
             list = query.find();
+            for (SnackItem item: list){
+                map.put(item.getObjectId(), item);
+            }
+
         } catch (ParseException e ){
         }
         return list;
+    }
+
+    /*
+        Get Item by Id
+     */
+    static public SnackItem getItemById(String id){
+        return  map.get(id);
     }
 
 }
