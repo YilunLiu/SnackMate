@@ -19,7 +19,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.support.v7.widget.SearchView;
@@ -32,11 +31,9 @@ import com.hexad.snackmate.Utils.Image.ImageHelper;
 import com.hexad.snackmate.ViewAdapters.HomePageAdapter;
 import com.hexad.snackmate.Models.LineItem;
 import com.hexad.snackmate.Models.SnackItem;
-import com.hexad.snackmate.Views.MultiLayerMenuView;
 import com.hexad.snackmate.R;
 import com.hexad.snackmate.Framgments.SelectFragment;
 import com.hexad.snackmate.Framgments.SortFragment;
-import com.hexad.snackmate.ViewAdapters.SubMultiMenuAdapter;
 import com.hexad.snackmate.Utils.Image.ImageLoader;
 import com.hexad.snackmate.Utils.Image.ImageResizer;
 import com.parse.ParseAnonymousUtils;
@@ -67,10 +64,6 @@ public class HomePageActivity extends AppCompatActivity
 
     private View choseSubject;
     private View choseSubject2;
-    private MultiLayerMenuView subListView;
-    private SubMultiMenuAdapter subAdapter;
-    private ArrayAdapter<String> filter_adapter;
-    private GridView gridView;
 
     private SearchView searchView;
     private HomePageAdapter imageAdapter;
@@ -124,17 +117,9 @@ public class HomePageActivity extends AppCompatActivity
         });
 
         //Set up spinner objects and add listeners for them
-//        init();
         addItemsOnSpinners();
-        addListenerOnSpinnerItemSelection();
-
 
     }
-
-//    private void init(){
-//        subListView=(MultiLayerMenu) findViewById(R.id.subListView);
-//        subListView.setBackgroundColor(Color.WHITE);
-//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -299,99 +284,6 @@ public class HomePageActivity extends AppCompatActivity
             }
         });
 
-
-    }
-
-    public void addListenerOnSpinnerItemSelection() {
-
-
-//        filter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View arg1, int position,
-//                                       long arg3) {
-//
-//                // TODO Auto-generated method stub
-//                subAdapter = new SubMultiMenuAdapter(getApplicationContext(), choices, position);
-//
-//                    final int location = position;
-//                    final String filter_type = parent.getItemAtPosition(position).toString();
-//                    if (filter_type != "Filter"){
-//                    subListView.setVisibility(View.VISIBLE);
-//                    subListView.setAdapter(subAdapter);
-//
-//                    subListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                        @Override
-//                        public void onItemClick(AdapterView<?> arg0, View arg1,
-//                                                int arg2, long arg3) {
-//
-//                            subListView.setVisibility(View.GONE);
-//                            String selected = choices[location][arg2];
-//                            if (filter_type == "Filter") {
-//
-//                                return;
-//                            }
-//                            else if (filter_type == "Origins") {
-//                                Country country = Country.All;
-//                                switch (selected) {
-//                                    case "China":
-//                                        country = Country.China;
-//                                        break;
-//                                    case "Japan":
-//                                        country = Country.Japan;
-//                                        break;
-//                                    case "Others":
-//                                        country = Country.Others;
-//                                        break;
-//                                    case "North Korea":
-//                                        country = Country.North_Korea;
-//                                        break;
-//                                    case "All":
-//                                        imageAdapter.setList(SnackItemService.list);
-//                                        return;
-//                                }
-//                                imageAdapter.filterByCountry(country);
-//                            } else {
-//                                Taste taste = Taste.All;
-//                                switch (selected) {
-//                                    case "Sweet":
-//                                        taste = Taste.Sweet;
-//                                        break;
-//                                    case "Sour":
-//                                        taste = Taste.Sour;
-//                                        break;
-//                                    case "Salty":
-//                                        taste = Taste.Salty;
-//                                        break;
-//                                    case "Spicy":
-//                                        taste = Taste.Spicy;
-//                                        break;
-//                                    case "Others":
-//                                        taste = Taste.Others;
-//                                        break;
-//                                    case "All":
-//                                        imageAdapter.setList(SnackItemService.list);
-//                                        return;
-//                                }
-//                                imageAdapter.filterByTaste(taste);
-//                            }
-//                            filter_adapter.notifyDataSetChanged();
-//                            subAdapter.notifyDataSetChanged();
-//                        }
-//                    });
-//                    }
-//                    else{
-//                        subListView.setVisibility(View.GONE);
-//                    }
-//
-//            }
-//
-//
-//            public void onNothingSelected(AdapterView<?> parent)
-//            {
-//
-//            }
-//        });
 
     }
 
