@@ -36,7 +36,7 @@ When user taps on filtering
 Then a dropdown menu shows up
 When user taps on (a category)
 Then the dropdown menu disappears
-And only the revelant items are on the homepage
+And only the relevant items are on the homepage
 
 -----
 
