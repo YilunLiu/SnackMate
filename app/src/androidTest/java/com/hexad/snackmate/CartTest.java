@@ -51,21 +51,6 @@ public class CartTest {
     @Rule
     public ActivityTestRule<HomePageActivity> mActivityRule = new ActivityTestRule<>(HomePageActivity.class);
 
-     @Test
-    public void AddToCart() {
-
-        // click to go to item detail
-        onData(anything()).inAdapterView(withId(R.id.homepage_gridview)).atPosition(0).perform(ViewActions.click());
-        // add to shopping cart
-        onView(withId(R.id.item_detail_cart)).perform(ViewActions.click());
-        // goes to shopping cart page
-        pressBack();
-        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
-        onView(withText("Shopping Cart")).perform(ViewActions.click());
-        // then there should be one item
-        onData(anything()).inAdapterView(withId(R.id.cart)).atPosition(0).check(matches(isDisplayed()));
-
-    }
 
     @Test
     public void Checkout() throws InterruptedException {
@@ -89,7 +74,7 @@ public class CartTest {
         onView(withText("Done")).perform(ViewActions.click());
         onView(withText("Charge Card")).perform(ViewActions.click());
         TimeUnit.SECONDS.sleep(1);
-        onData(anything()).inAdapterView(withId(R.id.cart)).atPosition(0).check(doesNotExist());
+        onView(withId(R.id.cart)).check(doesNotExist());
     }
 
 }
