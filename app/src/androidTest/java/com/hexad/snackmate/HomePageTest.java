@@ -74,56 +74,56 @@ public class HomePageTest {
         //onView(withText("1")).check(matches(isDisplayed()));
     }
 
-//
-//    /*4. Filtering
-//    Given the user is on homepage
-//    When user taps on filtering
-//    Then a dropdown menu shows up
-//    When user taps on (a category)
-//    Then the dropdown menu disappears
-//    And only the relevant items are on the homepage*/
-//
-//    @Test
-//    public void testFilterByCountry(){
-//
-//        // click the filter tab
-//        onView(withId(R.id.ll_select_subject)).perform(ViewActions.click());
-//
-//        // click "Origin" from the drop-down menu
-//        onData(anything()).inAdapterView(withId(R.id.lv_menu)).atPosition(0).perform(ViewActions.click());
-//
-//        // click "China" from the second layer menu
-//        onData(anything()).inAdapterView(withId(R.id.lv_subject)).atPosition(1).perform(ViewActions.click());
-//
-//        // check if gridview is successfully filtered with items which are from China
-//        onView(withId(R.id.homepage_gridview)).check(matches(filteredByCountry("China")));
-//
-//    }
-//
-//    // custom matcher for checking filter
-//    public static Matcher<View> filteredByCountry(final String country){
-//        return new TypeSafeMatcher<View>() {
-//
-//            @Override
-//            public boolean matchesSafely(View view) {
-//                if (!(view instanceof GridView)) {
-//                    return false;
-//                }
-//                ListAdapter adapter = ((GridView) view).getAdapter();
-//                for(int i = 0; i < adapter.getCount(); i++) {
-//                    SnackItem item = (SnackItem) adapter.getItem(i);
-//                    if (!item.getCountry().toString().equals(country))
-//                        return false;
-//                }
-//                return true;
-//            }
-//
-//            @Override
-//            public void describeTo(Description description) {
-//            }
-//        };
-//    }
-//
+
+    /*4. Filtering
+    Given the user is on homepage
+    When user taps on filtering
+    Then a dropdown menu shows up
+    When user taps on (a category)
+    Then the dropdown menu disappears
+    And only the relevant items are on the homepage*/
+
+    @Test
+    public void testFilterByCountry(){
+
+        // click the filter tab
+        onView(withId(R.id.ll_select_subject)).perform(ViewActions.click());
+
+        // click "Origin" from the drop-down menu
+        onData(anything()).inAdapterView(withId(R.id.lv_menu)).atPosition(0).perform(ViewActions.click());
+
+        // click "China" from the second layer menu
+        onData(anything()).inAdapterView(withId(R.id.lv_subject)).atPosition(1).perform(ViewActions.click());
+
+        // check if gridview is successfully filtered with items which are from China
+        onView(withId(R.id.homepage_gridview)).check(matches(filteredByCountry("China")));
+
+    }
+
+    // custom matcher for checking filter
+    public static Matcher<View> filteredByCountry(final String country){
+        return new TypeSafeMatcher<View>() {
+
+            @Override
+            public boolean matchesSafely(View view) {
+                if (!(view instanceof GridView)) {
+                    return false;
+                }
+                ListAdapter adapter = ((GridView) view).getAdapter();
+                for(int i = 0; i < adapter.getCount(); i++) {
+                    SnackItem item = (SnackItem) adapter.getItem(i);
+                    if (!item.getCountry().toString().equals(country))
+                        return false;
+                }
+                return true;
+            }
+
+            @Override
+            public void describeTo(Description description) {
+            }
+        };
+    }
+
 
 
     /*3. Sorting
