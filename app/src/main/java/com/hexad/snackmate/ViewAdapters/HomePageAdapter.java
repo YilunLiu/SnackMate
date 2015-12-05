@@ -62,7 +62,9 @@ public class HomePageAdapter extends BaseAdapter {
         return list.get(position);
     }
 
-
+    public List<SnackItem> getList() {
+        return list;
+    }
 
     @Override
     public long getItemId(int position) {
