@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.hexad.snackmate.R;
 import com.hexad.snackmate.Utils.Image.ImageLoader;
+import com.parse.ParseAnonymousUtils;
 import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
 
@@ -59,6 +60,9 @@ public class ProfileActivity extends Activity {
         loginOrLogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(!ParseAnonymousUtils.isLinked(ParseUser.getCurrentUser()))
+                    ParseUser.logOut();
                 ParseLoginBuilder loginBuilder = new ParseLoginBuilder(
                             ProfileActivity.this);
                 startActivityForResult(loginBuilder.build(), LOGIN_REQUEST);
