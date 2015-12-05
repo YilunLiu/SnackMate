@@ -1,6 +1,8 @@
 package com.hexad.snackmate;
 
+import android.app.Activity;
 import android.app.Application;
+import android.support.test.espresso.Espresso;
 import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.action.ViewActions;
 import android.test.ApplicationTestCase;
@@ -15,6 +17,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.LargeTest;
 
 import com.hexad.snackmate.Activities.HomePageActivity;
+import com.hexad.snackmate.Activities.ItemDetailActivity;
 import com.hexad.snackmate.Models.SnackItem;
 
 import org.junit.Rule;
@@ -32,16 +35,25 @@ import static android.support.test.espresso.intent.Intents.*;
 import static org.hamcrest.Matchers.*;
 
 
+/**
+ * 1. Normal browsing
+ Given the user opens the app
+ And the homepage shows up
+ When user taps on an item (either picture or title)
+ Then a detailed item page shows up
+ */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class HomePageEspressoTest {
+public class HomePageTest {
 
     @Rule
     public ActivityTestRule<HomePageActivity> mActivityRule = new ActivityTestRule<>(HomePageActivity.class);
 
     @Test
     public void clickTheItem() {
-        onData(allOf(is(instanceOf(SnackItem.class)))).perform(ViewActions.click());
-        
+        onData(anything()).inAdapterView(withId(R.id.homepage_gridview)).atPosition(0).perform(ViewActions.click());
+
+        onView(withId(R.id.image_itemdetail_view)).check(matches(isDisplayed()));
+        //onView(withText("1")).check(matches(isDisplayed()));
     }
 }
