@@ -71,7 +71,7 @@ public class WishListActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent = new Intent(WishListActivity.this, ItemDetailActivity.class);
-                        intent.putExtra("itemid", itemList.get(position).getIndex());
+                        intent.putExtra("itemid", itemList.get(position).getObjectId());
                         startActivity(intent);
                     }
                 });

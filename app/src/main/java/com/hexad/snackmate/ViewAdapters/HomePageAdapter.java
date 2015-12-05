@@ -57,7 +57,7 @@ public class HomePageAdapter extends BaseAdapter {
         return list.size();
     }
 
-    @Override
+
     public SnackItem getItem(int position) {
         return list.get(position);
     }
